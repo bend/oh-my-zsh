@@ -22,3 +22,24 @@ alias sl=ls # often screw this up
 
 alias afind='ack-grep -il'
 
+
+# Suffix aliases
+alias c=vim
+alias cc=vim
+alias cpp=vim
+alias html=vim
+alias java=vim
+alias rb=vim
+alias py=vim
+alias php=vim
+
+# Other Aliases
+alias ls='ls -G -F'
+alias turnoff='sudo shutdown -h +0'
+alias cdp='cd ~/Documents/Programation'
+alias cdd='cd ~/Documents/Dropbox'
+alias pinghome='ping bendaccache.dyndns-server.com'
+alias ll='ls -l'
+alias rmr='rm -r'
+alias browsed='browsed -hc'
+alias grep='grep --color=auto'
