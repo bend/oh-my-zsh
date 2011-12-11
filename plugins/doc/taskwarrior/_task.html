@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+
+<title>_brew</title>
+
+<link type="text/css" media="screen" href="../rdoc.css" rel="stylesheet">
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "../";
+</script>
+
+<script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/navigation.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/search_index.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/search.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/searcher.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/darkfish.js"></script>
+
+
+<body class="file">
+<nav id="metadata">
+  <nav id="home-section" class="section">
+  <h3 class="section-header">
+    <a href="../index.html">Home</a>
+    <a href="../table_of_contents.html#classes">Classes</a>
+    <a href="../table_of_contents.html#methods">Methods</a>
+  </h3>
+</nav>
+
+
+  <nav id="search-section" class="section project-section" class="initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <h3 class="section-header">
+      <input type="text" name="search" placeholder="Search" id="search-field"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </h3>
+  </form>
+
+  <ul id="search-results" class="initially-hidden"></ul>
+</nav>
+
+
+  <div id="project-metadata">
+    <nav id="fileindex-section" class="section project-section">
+  <h3 class="section-header">Pages</h3>
+
+  <ul>
+  
+    <li class="file"><a href="../brew/_brew.html">_brew</a>
+  
+    <li class="file"><a href="../bundler/_bundler.html">_bundler</a>
+  
+    <li class="file"><a href="../cpanm/_cpanm.html">_cpanm</a>
+  
+    <li class="file"><a href="../extract/_extract.html">_extract</a>
+  
+    <li class="file"><a href="../gas/_gas.html">_gas</a>
+  
+    <li class="file"><a href="../gem/_gem.html">_gem</a>
+  
+    <li class="file"><a href="../github/_github.html">_github</a>
+  
+    <li class="file"><a href="../heroku/_heroku.html">_heroku</a>
+  
+    <li class="file"><a href="../history-substring-search/README.html">README</a>
+  
+    <li class="file"><a href="../knife/_knife.html">_knife</a>
+  
+    <li class="file"><a href="../macports/_port.html">_port</a>
+  
+    <li class="file"><a href="../osx/_man-preview.html">_man-preview</a>
+  
+    <li class="file"><a href="../pip/_pip.html">_pip</a>
+  
+    <li class="file"><a href="../powder/_powder.html">_powder</a>
+  
+    <li class="file"><a href="../redis-cli/_redis-cli.html">_redis-cli</a>
+  
+    <li class="file"><a href="../rvm/_rvm.html">_rvm</a>
+  
+    <li class="file"><a href="../taskwarrior/_task.html">_task</a>
+  
+    <li class="file"><a href="../terminitor/_terminitor.html">_terminitor</a>
+  
+    <li class="file"><a href="../thor/_thor.html">_thor</a>
+  
+    <li class="file"><a href="../vagrant/_vagrant.html">_vagrant</a>
+  
+  </ul>
+</nav>
+
+    <nav id="classindex-section" class="section project-section">
+  <h3 class="section-header">Class and Module Index</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="../HTTParty.html">HTTParty</a>
+  
+    <li><a href="../HTTParty/Response.html">HTTParty::Response</a>
+  
+  </ul>
+</nav>
+
+  </div>
+</nav>
+
+<div id="documentation" class="description">
+  
+<p>compdef task # # zsh completion for taskwarrior # # Copyright 2010 - 2011
+Johannes Schlatow # Copyright 2009 P.C. Shyamshankar # All rights reserved.
+# # This script is part of the taskwarrior project. # # This program is
+free software; you can redistribute it and/or modify it under # the terms
+of the GNU General Public License as published by the Free Software #
+Foundation; either version 2 of the License, or (at your option) any later
+# version. # # This program is distributed in the hope that it will be
+useful, but WITHOUT # ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS # FOR A PARTICULAR PURPOSE.  See the GNU General
+Public License for more # details. # # You should have received a copy of
+the GNU General Public License along with # this program; if not, write to
+the # #     Free Software Foundation, Inc., #     51 Franklin Street, Fifth
+Floor, #     Boston, MA #     02110-1301 #     USA # typeset -g _task_cmds
+_task_projects _task_tags _task_config _task_modifiers
+_task_projects=($(task _projects)) _task_tags=($(task _tags))
+_task_ids=($(task _ids)) _task_config=($(task _config)) _task_modifiers=(</p>
+
+<pre>'before' \
+'after' \
+'none' \
+'any' \
+'is' \
+'isnt' \
+'has' \
+'hasnt' \
+'startswith' \
+'endswith' \
+'word' \
+'noword'</pre>
+
+<p>) _task_cmds=($(task _commands)) _task_zshcmds=( ${(f)“$(task
+_zshcommands)”} )</p>
+
+<p>_task_idCmds=(</p>
+
+<pre>'append' \
+'prepend' \
+'annotate' \
+'denotate' \
+'edit' \
+'duplicate' \
+'info' \
+'start' \
+'stop' \
+'done'</pre>
+
+<p>)</p>
+
+<p>_task_idCmdsDesc=(</p>
+
+<pre>'append:Appends more description to an existing task.' \
+'prepend:Prepends more description to an existing task.' \
+'annotate:Adds an annotation to an existing task.' \
+'denotate:Deletes an annotation of an existing task.' \
+'edit:Launches an editor to let you modify a task directly.' \
+'duplicate:Duplicates the specified task, and allows modifications.' \
+'info:Shows all data, metadata for specified task.' \
+'start:Marks specified task as started.' \
+'stop:Removes the start time from a task.' \
+'done:Marks the specified task as completed.'</pre>
+
+<p>)</p>
+
+<p>_task() {</p>
+
+<pre>_arguments -s -S \
+    &quot;*::task command:_task_commands&quot;
+return 0</pre>
+
+<p>}</p>
+
+<p>local -a reply args word <a href="http://^\0">word=$‘</a>#0’</p>
+
+<p># priorities local -a task_priorities _regex_words values ‘task priorities’
+\</p>
+
+<pre>'H:High' \
+'M:Middle' \
+'L:Low'</pre>
+
+<p>“>task_priorities=(”$reply</a> at <a href=“http://”)</p>
+
+<p># projects local -a task_projects task_projects=(</p>
+
+<pre>/&quot;$word&quot;/
+&quot;:values:task projects:compadd -a _task_projects&quot;</pre>
+
+<p>)</p>
+
+<p>local -a _task_dates _regex_words values ‘task dates’ \</p>
+
+<pre>'tod*ay:Today' \
+'yes*terday:Yesterday' \
+'tom*orrow:Tomorrow' \
+'sow:Start of week' \
+'soww:Start of work week' \
+'socw:Start of calendar week' \
+'som:Start of month' \
+'soy:Start of year' \
+'eow:End of week' \
+'eoww:End of work week' \
+'eocw:End of calendar week' \
+'eom:End of month' \
+'eoy:End of year' \
+'mon:Monday' \
+'tue:Tuesday'\
+'wed:Wednesday' \
+'thu:Thursday' \
+'fri:Friday' \
+'sat:Saturday' \
+'sun:Sunday'</pre>
+
+<p>“>task_priorities=(”$reply</a> at <a href=“http://”)</p>
+
+<p>local -a _task_reldates _regex_words values ‘task reldates’ \</p>
+
+<pre>'hrs:n hours' \
+'day:n days' \
+'1st:first' \
+'2nd:second' \
+'3rd:third' \
+'th:4th, 5th, etc.' \
+'wks:weeks'</pre>
+
+<p>“>task_priorities=(”$reply</a> at <a href=“http://”)</p>
+
+<p>task_dates=(</p>
+
+<pre>    \( &quot;$_task_dates[@]&quot; \|
+\( /$'[0-9][0-9]#'/- \( &quot;$_task_reldates[@]&quot; \) \)
+    \)</pre>
+
+<p>)</p>
+
+<p>_regex_words values ‘task frequencies’ \</p>
+
+<pre>'daily:Every day' \
+'day:Every day' \
+'weekdays:Every day skipping weekend days' \
+'weekly:Every week' \
+'biweekly:Every two weeks' \
+'fortnight:Every two weeks' \
+'quarterly:Every three months' \
+'semiannual:Every six months' \
+'annual:Every year' \
+'yearly:Every year' \
+'biannual:Every two years' \
+'biyearly:Every two years'</pre>
+
+<p>“>task_priorities=(”$reply</a> at <a href=“http://”)</p>
+
+<p>local -a _task_frequencies _regex_words values ‘task frequencies’ \</p>
+
+<pre>'d:days' \
+'w:weeks' \
+'q:quarters' \
+'y:years'</pre>
+
+<p>“>task_priorities=(”$reply</a> at <a href=“http://”)</p>
+
+<p>task_freqs=(</p>
+
+<pre>   \( &quot;$_task_freqs[@]&quot; \|
+\( /$'[0-9][0-9]#'/- \( &quot;$_task_frequencies[@]&quot; \) \)
+   \)</pre>
+
+<p>)</p>
+
+<p># attributes local -a task_attributes _regex_words -t ‘:’ default ‘task
+attributes’ \</p>
+
+<pre>'pro*ject:Project name:$task_projects' \
+'du*e:Due date:$task_dates' \
+'wa*it:Date until task becomes pending:$task_dates' \
+'re*cur:Recurrence frequency:$task_freqs' \
+'pri*ority:priority:$task_priorities' \
+'un*til:Recurrence end date:$task_dates' \
+'fg:Foreground color' \
+'bg:Background color' \
+'li*mit:Desired number of rows in report'</pre>
+
+<p>“>task_priorities=(”$reply</a> at <a href=“http://”)</p>
+
+<p>args=(</p>
+
+<pre>\( &quot;$task_attributes[@]&quot; \|
+\( /'(project|due|wait|recur|priority|until|fg|bg|limit).'/- \( /$'[^:]#:'/ &quot;:default:modifiers:compadd -S ':' -a _task_modifiers&quot; \) \) \|
+\( /'(rc).'/- \( /$'[^:]#:'/ &quot;:arguments:config:compadd -S ':' -a _task_config&quot; \) \) \|
+\( /'(+|-)'/- \( /&quot;$word&quot;/ &quot;:values:remove tag:compadd -a _task_tags&quot; \) \) \|
+\( /&quot;$word&quot;/ \)
+\) \#</pre>
+
+<p>) _regex_arguments _task_attributes “${<a href="http://@">args</a>}”</p>
+
+<p>## task commands</p>
+
+<p># default completion (( $+<a href="http://_task_default">functions</a> ))
+|| _task_default() {</p>
+
+<pre>_task_attributes &quot;$@&quot;</pre>
+
+<p>}</p>
+
+<p># commands expecting an ID (( $+<a href="http://_task_id">functions</a> ))
+|| _task_id() {</p>
+
+<pre>if (( CURRENT &lt; 3 )); then
+        # update IDs
+        _task_zshids=( ${(f)&quot;$(task _zshids)&quot;} )
+        _describe -t values 'task IDs' _task_zshids
+else
+        _task_attributes &quot;$@&quot;
+fi</pre>
+
+<p>}</p>
+
+<p># merge completion (( $+<a href="http://_task_merge">functions</a> )) ||
+_task_merge() {</p>
+
+<pre># TODO match URIs in .taskrc
+_files</pre>
+
+<p>}</p>
+
+<p># push completion (( $+<a href="http://_task_push">functions</a> )) ||
+_task_push() {</p>
+
+<pre># TODO match URIs in .taskrc
+_files</pre>
+
+<p>}</p>
+
+<p># pull completion (( $+<a href="http://_task_pull">functions</a> )) ||
+_task_pull() {</p>
+
+<pre># TODO match URIs in .taskrc
+_files</pre>
+
+<p>}</p>
+
+<p># modify (task [0-9]* …) completion (( $+<a
+href="http://_task_modify">functions</a> )) || _task_modify() {</p>
+
+<pre>_describe -t commands 'task command' _task_idCmdsDesc
+_task_attributes &quot;$@&quot;</pre>
+
+<p>}</p>
+
+<p>## first level completion =&gt; task sub-command completion (( $+<a
+href="http://_task_commands">functions</a> )) || _task_commands() {</p>
+
+<pre>local cmd ret=1
+    if (( CURRENT == 1 )); then
+            # update IDs
+            _task_zshids=( ${(f)&quot;$(task _zshids)&quot;} )
+
+            _describe -t commands 'task command' _task_zshcmds
+            _describe -t values 'task IDs' _task_zshids
+            # TODO match more than one ID
+    elif [[ $words[1] =~ ^[0-9]*$ ]] then
+             _call_function ret _task_modify
+             return ret
+    else</pre>
+
+<p>#        local curcontext=“${curcontext}” #        <a
+href="http://1">cmd=“${_task_cmds[®$words</a>:*]%%:*}”</p>
+
+<pre>          cmd=&quot;${_task_cmds[(r)$words[1]]}&quot;
+          idCmd=&quot;${(M)_task_idCmds[@]:#$words[1]}&quot;
+if (( $#cmd )); then</pre>
+
+<p>#            curcontext=“${curcontext%:*:*}:task-${cmd}”</p>
+
+<pre>                            if (( $#idCmd )); then
+                                    _call_function ret _task_id
+                            else
+                                    _call_function ret _task_${cmd} ||
+                                            _call_function ret _task_default ||
+                                                    _message &quot;No command remaining.&quot;
+                            fi
+    else
+        _message &quot;Unknown subcommand ${cmd}&quot;
+    fi
+    return ret
+fi</pre>
+
+<p>}</p>
+
+</div>
+
+
+
+<footer id="validator-badges">
+  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 3.11.
+  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
+</footer>
+

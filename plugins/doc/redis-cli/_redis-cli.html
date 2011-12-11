@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+
+<title>_brew</title>
+
+<link type="text/css" media="screen" href="../rdoc.css" rel="stylesheet">
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "../";
+</script>
+
+<script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/navigation.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/search_index.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/search.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/searcher.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/darkfish.js"></script>
+
+
+<body class="file">
+<nav id="metadata">
+  <nav id="home-section" class="section">
+  <h3 class="section-header">
+    <a href="../index.html">Home</a>
+    <a href="../table_of_contents.html#classes">Classes</a>
+    <a href="../table_of_contents.html#methods">Methods</a>
+  </h3>
+</nav>
+
+
+  <nav id="search-section" class="section project-section" class="initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <h3 class="section-header">
+      <input type="text" name="search" placeholder="Search" id="search-field"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </h3>
+  </form>
+
+  <ul id="search-results" class="initially-hidden"></ul>
+</nav>
+
+
+  <div id="project-metadata">
+    <nav id="fileindex-section" class="section project-section">
+  <h3 class="section-header">Pages</h3>
+
+  <ul>
+  
+    <li class="file"><a href="../brew/_brew.html">_brew</a>
+  
+    <li class="file"><a href="../bundler/_bundler.html">_bundler</a>
+  
+    <li class="file"><a href="../cpanm/_cpanm.html">_cpanm</a>
+  
+    <li class="file"><a href="../extract/_extract.html">_extract</a>
+  
+    <li class="file"><a href="../gas/_gas.html">_gas</a>
+  
+    <li class="file"><a href="../gem/_gem.html">_gem</a>
+  
+    <li class="file"><a href="../github/_github.html">_github</a>
+  
+    <li class="file"><a href="../heroku/_heroku.html">_heroku</a>
+  
+    <li class="file"><a href="../history-substring-search/README.html">README</a>
+  
+    <li class="file"><a href="../knife/_knife.html">_knife</a>
+  
+    <li class="file"><a href="../macports/_port.html">_port</a>
+  
+    <li class="file"><a href="../osx/_man-preview.html">_man-preview</a>
+  
+    <li class="file"><a href="../pip/_pip.html">_pip</a>
+  
+    <li class="file"><a href="../powder/_powder.html">_powder</a>
+  
+    <li class="file"><a href="../redis-cli/_redis-cli.html">_redis-cli</a>
+  
+    <li class="file"><a href="../rvm/_rvm.html">_rvm</a>
+  
+    <li class="file"><a href="../taskwarrior/_task.html">_task</a>
+  
+    <li class="file"><a href="../terminitor/_terminitor.html">_terminitor</a>
+  
+    <li class="file"><a href="../thor/_thor.html">_thor</a>
+  
+    <li class="file"><a href="../vagrant/_vagrant.html">_vagrant</a>
+  
+  </ul>
+</nav>
+
+    <nav id="classindex-section" class="section project-section">
+  <h3 class="section-header">Class and Module Index</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="../HTTParty.html">HTTParty</a>
+  
+    <li><a href="../HTTParty/Response.html">HTTParty::Response</a>
+  
+  </ul>
+</nav>
+
+  </div>
+</nav>
+
+<div id="documentation" class="description">
+  
+<p>compdef redis-cli rec autoload</p>
+
+<p>redis cli completion, based off homebrew completion (ref. 2011-04-14)</p>
+
+<p>local -a _1st_arguments _1st_arguments=(</p>
+
+<pre>'append:append a value to a key'
+'auth:authenticate to the server'
+'bgrewriteeaof:asynchronously rewrite the append-only file'
+'bgsave:asynchornously save the dataset to disk'
+'blpop:remove and get the first element in a list, or block until one is available'
+'brpop:remove and get the last element in a list, or block until one is available'
+'brpoplpush:pop a value from a list, push it to another list and return it; or block until one is available'
+# 'config get:get the value of a configuration parameter'
+# 'config set:set a configuration parameter to the given value'
+# 'config resetstat: reset the stats returned by INFO'
+'dbsize:return the number of keys in the selected database'
+# 'debug object:get debugging information about a key'
+# 'debug setgfault:make the server crash'
+'decr:decrement the integer value of a key by one'
+'decrby:decrement the integet value of a key by the given number'
+'del:delete a key'
+'discard:discard all commands issued after MULTI'
+'echo:echo the given string'
+'exec:execute all commands issued after a MULTI'
+'exists:determine if a key exists'
+'expire:set the time to live for a key, in seconds'
+'expireat:set the expiration for a key as a UNIX timestamp'
+'flushall:remove all keys from all databases'
+'flushdb:remove all keys from the current database'
+'get:get the value of a key'
+'getbit:returns the bit value at offset in the string value stored at key'
+'getrange:get a substring of the string stored at a key'
+'getset:set the string value of a key and return its old value'
+'hdel:delete a hash field'
+'hexists:determine if a hash field exists'
+'hget:get the value of a hash field'
+'hgetall:get all the fields and values in a hash'
+'hincrby:increment the integer value of a hash field by the given number'
+'hkeys:get all the fields in a hash'
+'hlen:get the number of fields in a hash'
+'hmget:get the values of all the given hash fields'
+'hmset:set multiple hash fields to multiple values'
+'hset:set the string value of a hash field'
+'hsetnx:set the value of a hash field, only if the field does not exist'
+'hvals:get all the values in a hash'
+'incr:increment the integer value of a key by one'
+'incrby:increment the integer value of a key by the given number'
+'info:get information and statistics about the server'
+'keys:find all keys matching the given pattern'
+'lastsave:get the UNIX timestamp of the last successful save to disk'
+'lindex:get an element from a list by its index'
+'linsert:insert an element before or after another element in a list'
+'llen:get the length of a list'
+'lpop:remove and get the first element in a list'
+'lpush:prepend a value to a list'
+'lpushx:prepend a value to a list, only if the list exists'
+'lrange:get a range of elements from a list'
+'lrem:remove elements from a list'
+'lset:set the value of an element in a list by its index'
+'ltrim:trim a list to the specified range'
+'mget:get the values of all the given keys'
+'monitor:listen for all requests received by the server in real time'
+'move:move a key to another database'
+'mset:set multiple keys to muliple values'
+'msetnx:set multiple keys tom ultiple values, only if none of the keys exist'
+'multi:mark the start of a transaction block'
+'object:inspect the internals of Redis objects'
+'persist:remove the expiration from a key'
+'ping:ping the server'
+'psubscribe:listen for messages published to channels matching the given patterns'
+'publish:post a message to a channel'
+'punsubscribe:stop listening for messages posted to channels matching the given patterns'
+'quit:close the connection'
+'randomkey:return a random key from the keyspace'
+'rename:rename a key'
+'renamenx:rename a key, only if the new key does not exist'
+'rpop:remove and get the last element in a list'
+'rpoplpush:remove the last element in a list, append it to another list and return it'
+'rpush:append a value to a list'
+'rpushx:append a value to a list, only if the list exists'
+'sadd:add a member to a set'
+'save:synchronously save the dataset to disk'
+'scard:get the number of members in a set'
+'sdiff:subtract multiple sets'
+'sdiffstore:subtract multiple sets and store the resulting set in a key'
+'select:change the selected database for the current connection'
+'set:set the string value of a key'
+'setbit:sets or clears the bit at offset in the string value stored at key'
+'setex:set the value and expiration of a key'
+'setnx:set the value of a key, only if the key does not exist'
+'setrange:overwrite part of a string at key starting at the specified offset'
+'shutdown:synchronously save the dataset to disk and then shut down the server'
+'sinter:intersect multiple sets'
+'sinterstore:intersect multiple sets and store the resulting set in a key'
+'sismember:determine if a given value is a member of a set'
+'slaveof:make the server a slave of another instance, or promote it as master'
+'smembers:get all the members in a set'
+'smove:move a member from one set to another'
+'sort:sort the elements in a list, set or sorted set'
+'spop:remove and return a random member from a set'
+'srandmember:get a random member from a set'
+'srem:remove a member from a set'
+'strlen:get the length of the value stored in a key'
+'subscribe:listen for messages published to the given channels'
+'sunion:add multiple sets'
+'sunionstore:add multiple sets and store the resulting set in a key'
+'ttl:get the time to live for a key'
+'type:determine the type stored at key'
+'unsubscribe:stop listening for messages posted to the given channels'
+'unwatch:forget about all watched keys'
+'watch:watch the given keys to determine execution of the MULTI/EXEC block'
+'zadd:add a member to a sorted set, or update its score if it already exists'
+'zcard:get the number of members in a sorted set'
+'zcount:count the members in a sorted set with scores within the given values'
+'zincrby:increment the score of a member in a sorted set'
+'zinterstore:intersect multiple sorted sets and store the resulting sorted set in a new key'
+'zrange:return a range of members in a sorted set, by index'
+'zrangebyscore:return a range of members in a sorted set, by score'
+'zrank:determine the index of a member in a sorted set'
+'zrem:remove a member from a sorted set'
+'zremrangebyrank:remove all members in a sorted set within the given indexes'
+'zremrangebyscore:remove all members in a sorted set within the given scores'
+'zrevrange:return a range of membrs in a sorted set, by index, with scores ordered from high to low'
+'zrevrangebyscore:return a range of members in a sorted set, by score, with scores ordered from high to low'
+'zrevrank:determine the index of a member in a sorted set, with scores ordered from high to low'
+'zscore:get the score associated with the given member in a sorted set'
+'zunionstore:add multiple sorted sets and store te resulting sorted set in a new key'</pre>
+
+<p>)</p>
+
+<p>local expl</p>
+
+<p>_arguments \</p>
+
+<pre>'(-v --version)'{-v,--version}'[show version]' \
+'(-h --help)'{-h,--help}'[show help]' \
+'*:: :-&gt;subcmds' &amp;&amp; return 0</pre>
+
+<p>if (( CURRENT == 1 )); then</p>
+
+<pre>_describe -t commands &quot;redis-cli subcommand&quot; _1st_arguments
+return</pre>
+
+<p>fi</p>
+
+</div>
+
+
+
+<footer id="validator-badges">
+  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 3.11.
+  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
+</footer>
+

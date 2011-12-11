@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+
+<title>_brew</title>
+
+<link type="text/css" media="screen" href="../rdoc.css" rel="stylesheet">
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "../";
+</script>
+
+<script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/navigation.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/search_index.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/search.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/searcher.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/darkfish.js"></script>
+
+
+<body class="file">
+<nav id="metadata">
+  <nav id="home-section" class="section">
+  <h3 class="section-header">
+    <a href="../index.html">Home</a>
+    <a href="../table_of_contents.html#classes">Classes</a>
+    <a href="../table_of_contents.html#methods">Methods</a>
+  </h3>
+</nav>
+
+
+  <nav id="search-section" class="section project-section" class="initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <h3 class="section-header">
+      <input type="text" name="search" placeholder="Search" id="search-field"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </h3>
+  </form>
+
+  <ul id="search-results" class="initially-hidden"></ul>
+</nav>
+
+
+  <div id="project-metadata">
+    <nav id="fileindex-section" class="section project-section">
+  <h3 class="section-header">Pages</h3>
+
+  <ul>
+  
+    <li class="file"><a href="../brew/_brew.html">_brew</a>
+  
+    <li class="file"><a href="../bundler/_bundler.html">_bundler</a>
+  
+    <li class="file"><a href="../cpanm/_cpanm.html">_cpanm</a>
+  
+    <li class="file"><a href="../extract/_extract.html">_extract</a>
+  
+    <li class="file"><a href="../gas/_gas.html">_gas</a>
+  
+    <li class="file"><a href="../gem/_gem.html">_gem</a>
+  
+    <li class="file"><a href="../github/_github.html">_github</a>
+  
+    <li class="file"><a href="../heroku/_heroku.html">_heroku</a>
+  
+    <li class="file"><a href="../history-substring-search/README.html">README</a>
+  
+    <li class="file"><a href="../knife/_knife.html">_knife</a>
+  
+    <li class="file"><a href="../macports/_port.html">_port</a>
+  
+    <li class="file"><a href="../osx/_man-preview.html">_man-preview</a>
+  
+    <li class="file"><a href="../pip/_pip.html">_pip</a>
+  
+    <li class="file"><a href="../powder/_powder.html">_powder</a>
+  
+    <li class="file"><a href="../redis-cli/_redis-cli.html">_redis-cli</a>
+  
+    <li class="file"><a href="../rvm/_rvm.html">_rvm</a>
+  
+    <li class="file"><a href="../taskwarrior/_task.html">_task</a>
+  
+    <li class="file"><a href="../terminitor/_terminitor.html">_terminitor</a>
+  
+    <li class="file"><a href="../thor/_thor.html">_thor</a>
+  
+    <li class="file"><a href="../vagrant/_vagrant.html">_vagrant</a>
+  
+  </ul>
+</nav>
+
+    <nav id="classindex-section" class="section project-section">
+  <h3 class="section-header">Class and Module Index</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="../HTTParty.html">HTTParty</a>
+  
+    <li><a href="../HTTParty/Response.html">HTTParty::Response</a>
+  
+  </ul>
+</nav>
+
+  </div>
+</nav>
+
+<div id="documentation" class="description">
+  
+<p>compdef bundle</p>
+
+<p>local curcontext=“$curcontext” state line _gems _opts ret=1</p>
+
+<p>_arguments -C -A “-v” -A “–version” \</p>
+
+<pre>'(- 1 *)'{-v,--version}'[display version information]' \
+'1: :-&gt;cmds' \
+'*:: :-&gt;args' &amp;&amp; ret=0</pre>
+
+<p>case $state in</p>
+
+<pre>cmds)
+        _values &quot;bundle command&quot; \
+                &quot;install[Install the gems specified by the Gemfile or Gemfile.lock]&quot; \
+                &quot;update[Update dependencies to their latest versions]&quot; \
+                &quot;package[Package the .gem files required by your application]&quot; \
+                &quot;exec[Execute a script in the context of the current bundle]&quot; \
+                &quot;config[Specify and read configuration options for bundler]&quot; \
+                &quot;check[Determine whether the requirements for your application are installed]&quot; \
+                &quot;list[Show all of the gems in the current bundle]&quot; \
+                &quot;show[Show the source location of a particular gem in the bundle]&quot; \
+                &quot;console[Start an IRB session in the context of the current bundle]&quot; \
+                &quot;open[Open an installed gem in the editor]&quot; \
+                &quot;viz[Generate a visual representation of your dependencies]&quot; \
+                &quot;init[Generate a simple Gemfile, placed in the current directory]&quot; \
+                &quot;gem[Create a simple gem, suitable for development with bundler]&quot; \
+                &quot;help[Describe available tasks or one specific task]&quot;
+        ret=0
+        ;;
+args)
+        case $line[1] in
+                help)
+                        _values 'commands' \
+            'install' \
+            'update' \
+            'package' \
+            'exec' \
+            'config' \
+            'check' \
+            'list' \
+            'show' \
+            'console' \
+            'open' \
+            'viz' \
+            'init' \
+            'gem' \
+            'help' &amp;&amp; ret=0
+                        ;;
+                install)
+                        _arguments \
+                                '(--no-color)--no-color[disable colorization in output]' \
+                                '(--local)--local[do not attempt to connect to rubygems.org]' \
+                                '(--quiet)--quiet[only output warnings and errors]' \
+                                '(--gemfile)--gemfile=-[use the specified gemfile instead of Gemfile]:gemfile' \
+                                '(--system)--system[install to the system location]' \
+                                '(--deployment)--deployment[install using defaults tuned for deployment environments]' \
+                                '(--frozen)--frozen[do not allow the Gemfile.lock to be updated after this install]' \
+                                '(--path)--path=-[specify a different path than the system default]:path:_files' \
+                                '(--binstubs)--binstubs=-[generate bin stubs for bundled gems to ./bin]:directory:_files' \
+                                '(--without)--without=-[exclude gems that are part of the specified named group]:groups'
+                        ret=0
+                        ;;
+                exec)
+                        _normal &amp;&amp; ret=0
+                        ;;
+                (open|show)
+                        _gems=( $(bundle show 2&gt; /dev/null | sed -e '/^  \*/!d; s/^  \* \([^ ]*\) .*/\1/') )
+                        if [[ $_gems != &quot;&quot; ]]; then
+                                _values 'gems' $_gems &amp;&amp; ret=0
+                        fi
+                        ;;
+                *)
+                        _opts=(  $(bundle help $line[1] | sed -e '/^  \[-/!d; s/^  \[\(-[^=]*\)=.*/\1/') )
+                        _opts+=( $(bundle help $line[1] | sed -e '/^  -/!d; s/^  \(-.\), \[\(-[^=]*\)=.*/\1 \2/') )
+                        if [[ $_opts != &quot;&quot; ]]; then
+                                _values 'options' $_opts &amp;&amp; ret=0
+                        fi
+                        ;;
+        esac
+        ;;</pre>
+
+<p>esac</p>
+
+<p>return ret</p>
+
+</div>
+
+
+
+<footer id="validator-badges">
+  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 3.11.
+  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
+</footer>
+

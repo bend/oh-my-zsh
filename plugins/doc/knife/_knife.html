@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+
+<title>_brew</title>
+
+<link type="text/css" media="screen" href="../rdoc.css" rel="stylesheet">
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "../";
+</script>
+
+<script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/navigation.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/search_index.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/search.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/searcher.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/darkfish.js"></script>
+
+
+<body class="file">
+<nav id="metadata">
+  <nav id="home-section" class="section">
+  <h3 class="section-header">
+    <a href="../index.html">Home</a>
+    <a href="../table_of_contents.html#classes">Classes</a>
+    <a href="../table_of_contents.html#methods">Methods</a>
+  </h3>
+</nav>
+
+
+  <nav id="search-section" class="section project-section" class="initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <h3 class="section-header">
+      <input type="text" name="search" placeholder="Search" id="search-field"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </h3>
+  </form>
+
+  <ul id="search-results" class="initially-hidden"></ul>
+</nav>
+
+
+  <div id="project-metadata">
+    <nav id="fileindex-section" class="section project-section">
+  <h3 class="section-header">Pages</h3>
+
+  <ul>
+  
+    <li class="file"><a href="../brew/_brew.html">_brew</a>
+  
+    <li class="file"><a href="../bundler/_bundler.html">_bundler</a>
+  
+    <li class="file"><a href="../cpanm/_cpanm.html">_cpanm</a>
+  
+    <li class="file"><a href="../extract/_extract.html">_extract</a>
+  
+    <li class="file"><a href="../gas/_gas.html">_gas</a>
+  
+    <li class="file"><a href="../gem/_gem.html">_gem</a>
+  
+    <li class="file"><a href="../github/_github.html">_github</a>
+  
+    <li class="file"><a href="../heroku/_heroku.html">_heroku</a>
+  
+    <li class="file"><a href="../history-substring-search/README.html">README</a>
+  
+    <li class="file"><a href="../knife/_knife.html">_knife</a>
+  
+    <li class="file"><a href="../macports/_port.html">_port</a>
+  
+    <li class="file"><a href="../osx/_man-preview.html">_man-preview</a>
+  
+    <li class="file"><a href="../pip/_pip.html">_pip</a>
+  
+    <li class="file"><a href="../powder/_powder.html">_powder</a>
+  
+    <li class="file"><a href="../redis-cli/_redis-cli.html">_redis-cli</a>
+  
+    <li class="file"><a href="../rvm/_rvm.html">_rvm</a>
+  
+    <li class="file"><a href="../taskwarrior/_task.html">_task</a>
+  
+    <li class="file"><a href="../terminitor/_terminitor.html">_terminitor</a>
+  
+    <li class="file"><a href="../thor/_thor.html">_thor</a>
+  
+    <li class="file"><a href="../vagrant/_vagrant.html">_vagrant</a>
+  
+  </ul>
+</nav>
+
+    <nav id="classindex-section" class="section project-section">
+  <h3 class="section-header">Class and Module Index</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="../HTTParty.html">HTTParty</a>
+  
+    <li><a href="../HTTParty/Response.html">HTTParty::Response</a>
+  
+  </ul>
+</nav>
+
+  </div>
+</nav>
+
+<div id="documentation" class="description">
+  
+<p>compdef knife</p>
+
+<p># These flags should be available everywhere according to man knife
+knife_general_flags=( –help –server-url –key –config –editor –format
+–log_level –logfile –no-editor –user –print-after –version –yes )</p>
+
+<p># knife has a very special syntax, some example calls are: # knife status #
+knife cookbook list # knife role show ROLENAME # knife data bag show
+DATABAGNAME # knife role show ROLENAME –attribute ATTRIBUTENAME # knife
+cookbook show COOKBOOKNAME COOKBOOKVERSION recipes</p>
+
+<p># The -Q switch in compadd allow for completions of things like “data bag”
+without having to go through two rounds of completion and avoids zsh
+inserting a \ for escaping spaces _knife() {</p>
+
+<pre>local curcontext=&quot;$curcontext&quot; state line
+typeset -A opt_args
+cloudproviders=(bluebox ec2 rackspace slicehost terremark)
+_arguments \
+  '1: :-&gt;knifecmd'\
+  '2: :-&gt;knifesubcmd'\
+  '3: :-&gt;knifesubcmd2' \
+  '4: :-&gt;knifesubcmd3' \
+  '5: :-&gt;knifesubcmd4' \
+  '6: :-&gt;knifesubcmd5'
+
+case $state in
+knifecmd)
+  compadd -Q &quot;$@&quot; bootstrap client configure cookbook &quot;cookbook site&quot; &quot;data bag&quot; exec index node recipe role search ssh status windows $cloudproviders
+;;
+knifesubcmd)
+  case $words[2] in
+  (bluebox|ec2|rackspace|slicehost|terremark)
+    compadd &quot;$@&quot; server images
+  ;;
+  client)
+    compadd -Q &quot;$@&quot; &quot;bulk delete&quot; list create show delete edit reregister
+  ;;
+  configure)
+    compadd &quot;$@&quot; client
+  ;;
+  cookbook)
+    compadd -Q &quot;$@&quot; test list create download delete &quot;metadata from&quot; show &quot;bulk delete&quot; metadata upload
+  ;;
+  node)
+   compadd -Q &quot;$@&quot; &quot;from file&quot; create show edit delete list run_list &quot;bulk delete&quot;
+  ;;
+  recipe)
+   compadd &quot;$@&quot; list
+  ;;
+  role)
+    compadd -Q &quot;$@&quot; &quot;bulk delete&quot; create delete edit &quot;from file&quot; list show
+  ;; 
+  windows)
+    compadd &quot;$@&quot; bootstrap
+  ;;
+  *)
+  _arguments '2:Subsubcommands:($(_knife_options1))'
+  esac
+ ;;
+ knifesubcmd2)
+  case $words[3] in
+   server)
+    compadd &quot;$@&quot; list create delete
+  ;;
+   images)
+    compadd &quot;$@&quot; list
+  ;;
+   site)
+    compadd &quot;$@&quot; vendor show share search download list unshare
+  ;;
+   (show|delete|edit)
+   _arguments '3:Subsubcommands:($(_chef_$words[2]s_remote))'
+  ;;
+  (upload|test)
+   _arguments '3:Subsubcommands:($(_chef_$words[2]s_local) --all)'
+  ;;
+  list)
+   compadd -a &quot;$@&quot; knife_general_flags
+  ;;
+  bag)
+    compadd -Q &quot;$@&quot; show edit list &quot;from file&quot; create delete
+  ;;
+  *)
+    _arguments '3:Subsubcommands:($(_knife_options2))'
+  esac
+ ;;
+ knifesubcmd3)
+   case $words[3] in
+    show)
+     case $words[2] in
+     cookbook)
+        versioncomp=1
+        _arguments '4:Cookbookversions:($(_cookbook_versions) latest)'
+     ;;
+     (node|client|role)
+       compadd &quot;$@&quot; --attribute
+     esac
+   esac
+   case $words[4] in
+   (show|edit)
+   _arguments '4:Subsubsubcommands:($(_chef_$words[2]_$words[3]s_remote))'
+  ;;
+   file)
+   _arguments '*:file or directory:_files -g &quot;*.(rb|json)&quot;'
+  ;;
+    list)
+   compadd -a &quot;$@&quot; knife_general_flags
+  ;;
+      *)
+     _arguments '*:Subsubcommands:($(_knife_options3))'
+  esac
+  ;;
+  knifesubcmd4)
+    if (( versioncomp &gt; 0 )); then
+      compadd &quot;$@&quot; attributes definitions files libraries providers recipes resources templates
+    else
+     _arguments '*:Subsubcommands:($(_knife_options2))'
+    fi
+  ;; 
+  knifesubcmd5) 
+    _arguments '*:Subsubcommands:($(_knife_options3))'
+ esac</pre>
+
+<p>}</p>
+
+<p># Helper functions to provide the argument completion for several depths of
+commands _knife_options1() {</p>
+
+<pre>( for line in $( knife $words[2] --help | grep -v &quot;^knife&quot; ); do echo $line | grep &quot;\-\-&quot;; done )</pre>
+
+<p>}</p>
+
+<p>_knife_options2() {</p>
+
+<pre>( for line in $( knife $words[2] $words[3] --help | grep -v &quot;^knife&quot; ); do echo $line | grep &quot;\-\-&quot;; done )</pre>
+
+<p>}</p>
+
+<p>_knife_options3() {</p>
+
+<pre>( for line in $( knife $words[2] $words[3] $words[4] --help | grep -v &quot;^knife&quot; ); do echo $line | grep &quot;\-\-&quot;; done )</pre>
+
+<p>}</p>
+
+<p># The chef_x_remote functions use knife to get a list of objects of type x
+on the server _chef_roles_remote() {</p>
+
+<pre>(knife role list | grep \&quot; | awk '{print $1}' | awk -F&quot;,&quot; '{print $1}' | awk -F&quot;\&quot;&quot; '{print $2}')</pre>
+
+<p>}</p>
+
+<p>_chef_clients_remote() {</p>
+
+<pre>(knife client list | grep \&quot; | awk '{print $1}' | awk -F&quot;,&quot; '{print $1}' | awk -F&quot;\&quot;&quot; '{print $2}')</pre>
+
+<p>}</p>
+
+<p>_chef_nodes_remote() {</p>
+
+<pre>(knife node list | grep \&quot; | awk '{print $1}' | awk -F&quot;,&quot; '{print $1}' | awk -F&quot;\&quot;&quot; '{print $2}')</pre>
+
+<p>}</p>
+
+<p>_chef_cookbooks_remote() {</p>
+
+<pre>(knife cookbook list | grep \&quot; | awk '{print $1}' | awk -F&quot;,&quot; '{print $1}' | awk -F&quot;\&quot;&quot; '{print $2}')</pre>
+
+<p>}</p>
+
+<p>_chef_sitecookbooks_remote() {</p>
+
+<pre>(knife cookbook site list | grep \&quot; | awk '{print $1}' | awk -F&quot;,&quot; '{print $1}' | awk -F&quot;\&quot;&quot; '{print $2}')</pre>
+
+<p>}</p>
+
+<p>_chef_data_bags_remote() {</p>
+
+<pre>(knife data bag list | grep \&quot; | awk '{print $1}' | awk -F&quot;,&quot; '{print $1}' | awk -F&quot;\&quot;&quot; '{print $2}')</pre>
+
+<p>}</p>
+
+<p># The chef_x_local functions use the knife config to find the paths of
+relevant objects x to be uploaded to the server _chef_cookbooks_local() {</p>
+
+<pre>(for i in $( grep cookbook_path $HOME/.chef/knife.rb | awk 'BEGIN {FS = &quot;[&quot; }; {print $2}' | sed 's/\,//g' | sed &quot;s/'//g&quot; | sed 's/\(.*\)]/\1/' ); do ls $i; done)</pre>
+
+<p>}</p>
+
+<p># This function extracts the available cookbook versions on the chef server
+_cookbook_versions() {</p>
+
+<pre class="ruby">(<span class="ruby-identifier">knife</span> <span class="ruby-identifier">cookbook</span> <span class="ruby-identifier">show</span> <span class="ruby-identifier">$words</span>[<span class="ruby-value">4</span>] <span class="ruby-operator">|</span> <span class="ruby-identifier">grep</span> <span class="ruby-operator">-</span><span class="ruby-identifier">v</span> <span class="ruby-identifier">$words</span>[<span class="ruby-value">4</span>] <span class="ruby-operator">|</span> <span class="ruby-identifier">grep</span> <span class="ruby-operator">-</span><span class="ruby-identifier">v</span> <span class="ruby-operator">-</span><span class="ruby-constant">E</span> <span class="ruby-string">'\]|\[|\{|\}'</span> <span class="ruby-operator">|</span> <span class="ruby-identifier">sed</span> <span class="ruby-string">'s/ //g'</span> <span class="ruby-operator">|</span> <span class="ruby-identifier">sed</span> <span class="ruby-string">'s/&quot;//g'</span>)
+</pre>
+
+<p>}</p>
+
+<p>_knife “$@”</p>
+
+</div>
+
+
+
+<footer id="validator-badges">
+  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 3.11.
+  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
+</footer>
+

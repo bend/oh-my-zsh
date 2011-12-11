@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+
+<title>_brew</title>
+
+<link type="text/css" media="screen" href="../rdoc.css" rel="stylesheet">
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "../";
+</script>
+
+<script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/navigation.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/search_index.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/search.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/searcher.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/darkfish.js"></script>
+
+
+<body class="file">
+<nav id="metadata">
+  <nav id="home-section" class="section">
+  <h3 class="section-header">
+    <a href="../index.html">Home</a>
+    <a href="../table_of_contents.html#classes">Classes</a>
+    <a href="../table_of_contents.html#methods">Methods</a>
+  </h3>
+</nav>
+
+
+  <nav id="search-section" class="section project-section" class="initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <h3 class="section-header">
+      <input type="text" name="search" placeholder="Search" id="search-field"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </h3>
+  </form>
+
+  <ul id="search-results" class="initially-hidden"></ul>
+</nav>
+
+
+  <div id="project-metadata">
+    <nav id="fileindex-section" class="section project-section">
+  <h3 class="section-header">Pages</h3>
+
+  <ul>
+  
+    <li class="file"><a href="../brew/_brew.html">_brew</a>
+  
+    <li class="file"><a href="../bundler/_bundler.html">_bundler</a>
+  
+    <li class="file"><a href="../cpanm/_cpanm.html">_cpanm</a>
+  
+    <li class="file"><a href="../extract/_extract.html">_extract</a>
+  
+    <li class="file"><a href="../gas/_gas.html">_gas</a>
+  
+    <li class="file"><a href="../gem/_gem.html">_gem</a>
+  
+    <li class="file"><a href="../github/_github.html">_github</a>
+  
+    <li class="file"><a href="../heroku/_heroku.html">_heroku</a>
+  
+    <li class="file"><a href="../history-substring-search/README.html">README</a>
+  
+    <li class="file"><a href="../knife/_knife.html">_knife</a>
+  
+    <li class="file"><a href="../macports/_port.html">_port</a>
+  
+    <li class="file"><a href="../osx/_man-preview.html">_man-preview</a>
+  
+    <li class="file"><a href="../pip/_pip.html">_pip</a>
+  
+    <li class="file"><a href="../powder/_powder.html">_powder</a>
+  
+    <li class="file"><a href="../redis-cli/_redis-cli.html">_redis-cli</a>
+  
+    <li class="file"><a href="../rvm/_rvm.html">_rvm</a>
+  
+    <li class="file"><a href="../taskwarrior/_task.html">_task</a>
+  
+    <li class="file"><a href="../terminitor/_terminitor.html">_terminitor</a>
+  
+    <li class="file"><a href="../thor/_thor.html">_thor</a>
+  
+    <li class="file"><a href="../vagrant/_vagrant.html">_vagrant</a>
+  
+  </ul>
+</nav>
+
+    <nav id="classindex-section" class="section project-section">
+  <h3 class="section-header">Class and Module Index</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="../HTTParty.html">HTTParty</a>
+  
+    <li><a href="../HTTParty/Response.html">HTTParty::Response</a>
+  
+  </ul>
+</nav>
+
+  </div>
+</nav>
+
+<div id="documentation" class="description">
+  
+<p>compdef heroku</p>
+
+<p># Heroku Autocomplete plugin for Oh-My-Zsh # Requires: The Heroku client
+gem (<a
+href="https://github.com/heroku/heroku">github.com/heroku/heroku</a>) #
+Author: Ali B. (<a href="http://awhitebox.com">awhitebox.com</a>)</p>
+
+<p>local -a _1st_arguments _1st_arguments=(</p>
+
+<pre>&quot;account\:confirm_billing&quot;:&quot;Confirm that your account can be billed at the end of the month&quot;
+&quot;addons&quot;:&quot;list installed addons&quot;
+&quot;addons\:list&quot;:&quot;list all available addons&quot;
+&quot;addons\:add&quot;:&quot;install an addon&quot;
+&quot;addons\:upgrade&quot;:&quot;upgrade an existing addon&quot;
+&quot;addons\:downgrade&quot;:&quot;downgrade an existing addon&quot;
+&quot;addons\:remove&quot;:&quot;uninstall an addon&quot;
+&quot;addons\:open&quot;:&quot;open an addon's dashboard in your browser&quot;
+&quot;apps&quot;:&quot;list your apps&quot;
+&quot;apps\:info&quot;:&quot;show detailed app information&quot;
+&quot;apps\:create&quot;:&quot;create a new app&quot;
+&quot;apps\:rename&quot;:&quot;rename the app&quot;
+&quot;apps\:open&quot;:&quot;open the app in a web browser&quot;
+&quot;apps\:destroy&quot;:&quot;permanently destroy an app&quot;
+&quot;auth\:login&quot;:&quot;log in with your heroku credentials&quot;
+&quot;auth\:logout&quot;:&quot;clear local authentication credentials&quot;
+&quot;config&quot;:&quot;display the config vars for an app&quot;
+&quot;config\:add&quot;:&quot;add one or more config vars&quot;
+&quot;config\:remove&quot;:&quot;remove a config var&quot;
+&quot;db\:push&quot;:&quot;push local data up to your app&quot;
+&quot;db\:pull&quot;:&quot;pull heroku data down into your local database&quot;
+&quot;domains&quot;:&quot;list custom domains for an app&quot;
+&quot;domains\:add&quot;:&quot;add a custom domain to an app&quot;
+&quot;domains\:remove&quot;:&quot;remove a custom domain from an app&quot;
+&quot;domains\:clear&quot;:&quot;remove all custom domains from an app&quot;
+&quot;help&quot;:&quot;list available commands or display help for a specific command&quot;
+&quot;keys&quot;:&quot;display keys for the current user&quot;
+&quot;keys\:add&quot;:&quot;add a key for the current user&quot;
+&quot;keys\:remove&quot;:&quot;remove a key from the current user&quot;
+&quot;keys\:clear&quot;:&quot;remove all authentication keys from the current user&quot;
+&quot;logs&quot;:&quot;display recent log output&quot;
+&quot;logs\:cron&quot;:&quot;DEPRECATED: display cron logs from legacy logging&quot;
+&quot;logs\:drains&quot;:&quot;manage syslog drains&quot;
+&quot;maintenance\:on&quot;:&quot;put the app into maintenance mode&quot;
+&quot;maintenance\:off&quot;:&quot;take the app out of maintenance mode&quot;
+&quot;pg\:info&quot;:&quot;display database information&quot;
+&quot;pg\:ingress&quot;:&quot;allow direct connections to the database from this IP for one minute&quot;
+&quot;pg\:promote&quot;:&quot;sets DATABASE as your DATABASE_URL&quot;
+&quot;pg\:psql&quot;:&quot;open a psql shell to the database&quot;
+&quot;pg\:reset&quot;:&quot;delete all data in DATABASE&quot;
+&quot;pg\:unfollow&quot;:&quot;stop a replica from following and make it a read/write database&quot;
+&quot;pg\:wait&quot;:&quot;monitor database creation, exit when complete&quot;
+&quot;pgbackups&quot;:&quot;list captured backups&quot;
+&quot;pgbackups\:url&quot;:&quot;get a temporary URL for a backup&quot;
+&quot;pgbackups\:capture&quot;:&quot;capture a backup from a database id&quot;
+&quot;pgbackups\:restore&quot;:&quot;restore a backup to a database&quot;
+&quot;pgbackups\:destroy&quot;:&quot;destroys a backup&quot;
+&quot;plugins&quot;:&quot;list installed plugins&quot;
+&quot;plugins\:install&quot;:&quot;install a plugin&quot;
+&quot;plugins\:uninstall&quot;:&quot;uninstall a plugin&quot;
+&quot;ps\:dynos&quot;:&quot;scale to QTY web processes&quot;
+&quot;ps\:workers&quot;:&quot;scale to QTY background processes&quot;
+&quot;ps&quot;:&quot;list processes for an app&quot;
+&quot;ps\:restart&quot;:&quot;restart an app process&quot;
+&quot;ps\:scale&quot;:&quot;scale processes by the given amount&quot;
+&quot;releases&quot;:&quot;list releases&quot;
+&quot;releases\:info&quot;:&quot;view detailed information for a release&quot;
+&quot;rollback&quot;:&quot;roll back to an older release&quot;
+&quot;run&quot;:&quot;run an attached process&quot;
+&quot;run\:rake&quot;:&quot;remotely execute a rake command&quot;
+&quot;run\:console&quot;:&quot;open a remote console session&quot;
+&quot;sharing&quot;:&quot;list collaborators on an app&quot;
+&quot;sharing\:add&quot;:&quot;add a collaborator to an app&quot;
+&quot;sharing\:remove&quot;:&quot;remove a collaborator from an app&quot;
+&quot;sharing\:transfer&quot;:&quot;transfer an app to a new owner&quot;
+&quot;ssl&quot;:&quot;list certificates for an app&quot;
+&quot;ssl\:add&quot;:&quot;add an ssl certificate to an app&quot;
+&quot;ssl\:remove&quot;:&quot;remove an ssl certificate from an app&quot;
+&quot;ssl\:clear&quot;:&quot;remove all ssl certificates from an app&quot;
+&quot;stack&quot;:&quot;show the list of available stacks&quot;
+&quot;stack\:migrate&quot;:&quot;prepare migration of this app to a new stack&quot;
+&quot;version&quot;:&quot;show heroku client version&quot;</pre>
+
+<p>)</p>
+<dl class="rdoc-list note-list"><dt>_arguments ‘*
+<dd>
+<p>:-&gt;command’</p>
+</dd></dl>
+
+<p>if (( CURRENT == 1 )); then</p>
+
+<pre>_describe -t commands &quot;heroku command&quot; _1st_arguments
+return</pre>
+
+<p>fi</p>
+
+<p>local -a _command_args case “$<a href="http://1">words</a>” in</p>
+
+<pre>apps:info)
+  _command_args=(
+    '(-r|--raw)'{-r,--raw}'[output info as raw key/value pairs]' \
+  )
+  ;;
+apps:create)
+  _command_args=(
+    '(-a|--addons)'{-a,--addons}'[a list of addons to install]' \
+    '(-r|--remote)'{-r,--remote}'[the git remote to create, default &quot;heroku&quot;]' \
+    '(-s|--stack)'{-s,--stack}'[the stack on which to create the app]' \
+  )
+  ;;
+config)
+  _command_args=(
+    '(-s|--shell)'{-s,--shell}'[output config vars in shell format]' \
+  )
+  ;;
+db:push)
+  _command_args=(
+    '(-c|--chunksize)'{-c,--chunksize}'[specify the number of rows to send in each batch]' \
+    '(-d|--debug)'{-d,--debug}'[enable debugging output]' \
+    '(-e|--exclude)'{-e,--exclude}'[exclude the specified tables from the push]' \
+    '(-f|--filter)'{-f,--filter}'[only push certain tables]' \
+    '(-r|--resume)'{-r,--resume}'[resume transfer described by a .dat file]' \
+    '(-t|--tables)'{-t,--tables}'[only push the specified tables]' \
+  )
+  ;;
+db:pull)
+  _command_args=(
+    '(-c|--chunksize)'{-c,--chunksize}'[specify the number of rows to send in each batch]' \
+    '(-d|--debug)'{-d,--debug}'[enable debugging output]' \
+    '(-e|--exclude)'{-e,--exclude}'[exclude the specified tables from the pull]' \
+    '(-f|--filter)'{-f,--filter}'[only pull certain tables]' \
+    '(-r|--resume)'{-r,--resume}'[resume transfer described by a .dat file]' \
+    '(-t|--tables)'{-t,--tables}'[only pull the specified tables]' \
+  )
+  ;;
+keys)
+  _command_args=(
+    '(-l|--long)'{-l,--long}'[display extended information for each key]' \
+  )
+  ;;
+logs)
+  _command_args=(
+    '(-n|--num)'{-n,--num}'[the number of lines to display]' \
+    '(-p|--ps)'{-p,--ps}'[only display logs from the given process]' \
+    '(-s|--source)'{-s,--source}'[only display logs from the given source]' \
+    '(-t|--tail)'{-t,--tail}'[continually stream logs]' \
+  )
+  ;;
+pgbackups:capture)
+  _command_args=(
+    '(-e|--expire)'{-e,--expire}'[if no slots are available to capture, delete the oldest backup to make room]' \
+  )
+  ;;
+stack)
+  _command_args=(
+    '(-a|--all)'{-a,--all}'[include deprecated stacks]' \
+  )
+  ;;
+esac</pre>
+
+<p>_arguments \</p>
+
+<pre>$_command_args \
+'(--app)--app[the app name]' \
+&amp;&amp;  return 0</pre>
+
+</div>
+
+
+
+<footer id="validator-badges">
+  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 3.11.
+  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
+</footer>
+

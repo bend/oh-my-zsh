@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+
+<title>_brew</title>
+
+<link type="text/css" media="screen" href="../rdoc.css" rel="stylesheet">
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "../";
+</script>
+
+<script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/navigation.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/search_index.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/search.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/searcher.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/darkfish.js"></script>
+
+
+<body class="file">
+<nav id="metadata">
+  <nav id="home-section" class="section">
+  <h3 class="section-header">
+    <a href="../index.html">Home</a>
+    <a href="../table_of_contents.html#classes">Classes</a>
+    <a href="../table_of_contents.html#methods">Methods</a>
+  </h3>
+</nav>
+
+
+  <nav id="search-section" class="section project-section" class="initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <h3 class="section-header">
+      <input type="text" name="search" placeholder="Search" id="search-field"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </h3>
+  </form>
+
+  <ul id="search-results" class="initially-hidden"></ul>
+</nav>
+
+
+  <div id="project-metadata">
+    <nav id="fileindex-section" class="section project-section">
+  <h3 class="section-header">Pages</h3>
+
+  <ul>
+  
+    <li class="file"><a href="../brew/_brew.html">_brew</a>
+  
+    <li class="file"><a href="../bundler/_bundler.html">_bundler</a>
+  
+    <li class="file"><a href="../cpanm/_cpanm.html">_cpanm</a>
+  
+    <li class="file"><a href="../extract/_extract.html">_extract</a>
+  
+    <li class="file"><a href="../gas/_gas.html">_gas</a>
+  
+    <li class="file"><a href="../gem/_gem.html">_gem</a>
+  
+    <li class="file"><a href="../github/_github.html">_github</a>
+  
+    <li class="file"><a href="../heroku/_heroku.html">_heroku</a>
+  
+    <li class="file"><a href="../history-substring-search/README.html">README</a>
+  
+    <li class="file"><a href="../knife/_knife.html">_knife</a>
+  
+    <li class="file"><a href="../macports/_port.html">_port</a>
+  
+    <li class="file"><a href="../osx/_man-preview.html">_man-preview</a>
+  
+    <li class="file"><a href="../pip/_pip.html">_pip</a>
+  
+    <li class="file"><a href="../powder/_powder.html">_powder</a>
+  
+    <li class="file"><a href="../redis-cli/_redis-cli.html">_redis-cli</a>
+  
+    <li class="file"><a href="../rvm/_rvm.html">_rvm</a>
+  
+    <li class="file"><a href="../taskwarrior/_task.html">_task</a>
+  
+    <li class="file"><a href="../terminitor/_terminitor.html">_terminitor</a>
+  
+    <li class="file"><a href="../thor/_thor.html">_thor</a>
+  
+    <li class="file"><a href="../vagrant/_vagrant.html">_vagrant</a>
+  
+  </ul>
+</nav>
+
+    <nav id="classindex-section" class="section project-section">
+  <h3 class="section-header">Class and Module Index</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="../HTTParty.html">HTTParty</a>
+  
+    <li><a href="../HTTParty/Response.html">HTTParty::Response</a>
+  
+  </ul>
+</nav>
+
+  </div>
+</nav>
+
+<div id="documentation" class="description">
+  
+<p>compdef vagrant  autoload</p>
+
+<p># vagrant zsh completion</p>
+
+<p>local -a _1st_arguments _1st_arguments=(</p>
+
+<pre>'box:Box commands'
+'destroy:Destroys the vagrant environment'
+'halt:Halts the currently running vagrant environment'
+'help:[TASK] Describe available tasks or one specific task'
+'init:[box_name] [box_url] Initializes current folder for Vagrant usage'
+'package:Packages a vagrant environment for distribution'
+'provision:Run the provisioner'
+'reload:Reload the vagrant environment'
+'resume:Resumes a suspend vagrant environment'
+'ssh:SSH into the currently running environment'
+'ssh_config:outputs .ssh/config valid syntax for connecting to this environment via ssh.'
+'status:Shows the status of the current Vagrant environment.'
+'suspend:Suspends the currently running vagrant environment'
+'up:Creates the vagrant environment'
+'version:Prints the Vagrant version information'</pre>
+
+<p>)</p>
+
+<p>local -a _box_arguments _box_arguments=(</p>
+
+<pre>'add:NAME URI Add a box to the system'
+'help:COMMAND Describe subcommands or one specific subcommand'
+'list:Lists all installed boxes'
+'remove:NAME Remove a box from the system'
+'repackage:NAME Repackage an installed box into a `.box` file.'</pre>
+
+<p>)</p>
+
+<p>__task_list () {</p>
+
+<pre>local expl
+declare -a tasks
+
+tasks=(box destroy halt init package provision reload resume ssh ssh_config status suspend up version)
+
+_wanted tasks expl 'help' compadd $tasks</pre>
+
+<p>}</p>
+
+<p>__box_list () {</p>
+
+<pre>_wanted application expl 'command' compadd $(command ls -1 $HOME/.vagrant/boxes 2&gt;/dev/null| sed -e 's/ /\\ /g')</pre>
+
+<p>}</p>
+
+<p>__vagrant-box () {</p>
+
+<pre> local curcontext=&quot;$curcontext&quot; state line
+ typeset -A opt_args
+
+ _arguments -C \
+     ':command:-&gt;command' \
+     '*::options:-&gt;options'
+
+case $state in
+    (command)
+        _describe -t commands &quot;gem subcommand&quot; _box_arguments
+        return
+    ;;
+
+    (options)
+        case $line[1] in
+            (repackage|remove)
+                _arguments ':feature:__box_list' 
+            ;;
+        esac
+    ;;
+ esac</pre>
+
+<p>}</p>
+
+<p>local expl local -a boxes installed_boxes</p>
+
+<p>local curcontext=“$curcontext” state line typeset -A opt_args</p>
+
+<p>_arguments -C \</p>
+
+<pre>':command:-&gt;command' \
+'*::options:-&gt;options'</pre>
+
+<p>case $state in</p>
+
+<pre>(command)
+    _describe -t commands &quot;gem subcommand&quot; _1st_arguments
+    return
+;;
+
+(options)
+  case $line[1] in
+    (help)
+       _arguments ':feature:__task_list' 
+    ;;
+
+    (box)
+        __vagrant-box
+    ;;
+  esac
+;;</pre>
+
+<p>esac</p>
+
+</div>
+
+
+
+<footer id="validator-badges">
+  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 3.11.
+  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
+</footer>
+

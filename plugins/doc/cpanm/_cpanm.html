@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+
+<title>_brew</title>
+
+<link type="text/css" media="screen" href="../rdoc.css" rel="stylesheet">
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "../";
+</script>
+
+<script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/navigation.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/search_index.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/search.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/searcher.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/darkfish.js"></script>
+
+
+<body class="file">
+<nav id="metadata">
+  <nav id="home-section" class="section">
+  <h3 class="section-header">
+    <a href="../index.html">Home</a>
+    <a href="../table_of_contents.html#classes">Classes</a>
+    <a href="../table_of_contents.html#methods">Methods</a>
+  </h3>
+</nav>
+
+
+  <nav id="search-section" class="section project-section" class="initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <h3 class="section-header">
+      <input type="text" name="search" placeholder="Search" id="search-field"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </h3>
+  </form>
+
+  <ul id="search-results" class="initially-hidden"></ul>
+</nav>
+
+
+  <div id="project-metadata">
+    <nav id="fileindex-section" class="section project-section">
+  <h3 class="section-header">Pages</h3>
+
+  <ul>
+  
+    <li class="file"><a href="../brew/_brew.html">_brew</a>
+  
+    <li class="file"><a href="../bundler/_bundler.html">_bundler</a>
+  
+    <li class="file"><a href="../cpanm/_cpanm.html">_cpanm</a>
+  
+    <li class="file"><a href="../extract/_extract.html">_extract</a>
+  
+    <li class="file"><a href="../gas/_gas.html">_gas</a>
+  
+    <li class="file"><a href="../gem/_gem.html">_gem</a>
+  
+    <li class="file"><a href="../github/_github.html">_github</a>
+  
+    <li class="file"><a href="../heroku/_heroku.html">_heroku</a>
+  
+    <li class="file"><a href="../history-substring-search/README.html">README</a>
+  
+    <li class="file"><a href="../knife/_knife.html">_knife</a>
+  
+    <li class="file"><a href="../macports/_port.html">_port</a>
+  
+    <li class="file"><a href="../osx/_man-preview.html">_man-preview</a>
+  
+    <li class="file"><a href="../pip/_pip.html">_pip</a>
+  
+    <li class="file"><a href="../powder/_powder.html">_powder</a>
+  
+    <li class="file"><a href="../redis-cli/_redis-cli.html">_redis-cli</a>
+  
+    <li class="file"><a href="../rvm/_rvm.html">_rvm</a>
+  
+    <li class="file"><a href="../taskwarrior/_task.html">_task</a>
+  
+    <li class="file"><a href="../terminitor/_terminitor.html">_terminitor</a>
+  
+    <li class="file"><a href="../thor/_thor.html">_thor</a>
+  
+    <li class="file"><a href="../vagrant/_vagrant.html">_vagrant</a>
+  
+  </ul>
+</nav>
+
+    <nav id="classindex-section" class="section project-section">
+  <h3 class="section-header">Class and Module Index</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="../HTTParty.html">HTTParty</a>
+  
+    <li><a href="../HTTParty/Response.html">HTTParty::Response</a>
+  
+  </ul>
+</nav>
+
+  </div>
+</nav>
+
+<div id="documentation" class="description">
+  
+<p>compdef cpanm</p>
+
+<p>## # cpanminus Z Shell completion script ## # # Current supported cpanm
+version: 1.4000 (Tue Mar  8 01:00:49 PST 2011) # # The latest code is
+always located at: #   <a
+href="https://github.com/rshhh/cpanminus/blob/master/etc/_cpanm">github.com/rshhh/cpanminus/blob/master/etc/_cpanm</a>
+#</p>
+
+<p>local arguments curcontext=“$curcontext” typeset -A opt_args</p>
+
+<p>arguments=(</p>
+
+<p># Commands #  ‘(–install -i)’{–install,-i}‘[Installs the modules]’</p>
+
+<pre>'(- :)--self-upgrade[Upgrades itself]'
+'(- :)--info[Displays distribution info on CPAN]'
+'(--installdeps)--installdeps[Only install dependencies]'
+'(--look)--look[Download/unpack the distribution and then open the directory with your shell]'
+'(- :)'{--help,-h}'[Displays help information]'
+'(- :)'{--version,-V}'[Displays software version]'</pre>
+
+<p># Options</p>
+
+<pre>{--force,-f}'[Force install]'
+{--notest,-n}'[Do not run unit tests]'
+{--sudo,-S}'[sudo to run install commands]'
+'(-v --verbose --quiet -q)'{--verbose,-v}'[Turns on chatty output]'
+'(-q --quiet --verbose -v)'{--quiet,-q}'[Turns off all output]'
+{--local-lib,-l}'[Specify the install base to install modules]'
+{--local-lib-contained,-L}'[Specify the install base to install all non-core modules]'
+'--mirror[Specify the base URL for the mirror (e.g. http://cpan.cpantesters.org/)]:URLs:_urls'
+'--mirror-only[Use the mirror\''s index file instead of the CPAN Meta DB]'
+'--prompt[Prompt when configure/build/test fails]'
+'--reinstall[Reinstall the distribution even if you already have the latest version installed]'
+'--interactive[Turn on interactive configure]'
+
+'--scandeps[Scan the depencencies of given modules and output the tree in a text format]'
+'--format[Specify what format to display the scanned dependency tree]:scandeps format:(tree json yaml dists)'
+
+'--save-dists[Specify the optional directory path to copy downloaded tarballs]'</pre>
+
+<p>#  ‘–uninst-shadows[Uninstalls the shadow files of the distribution that
+you'’re installing]‘</p>
+
+<pre class="ruby"><span class="ruby-string">'--auto-cleanup[Number of days that cpanm\'</span><span class="ruby-identifier">s</span> <span class="ruby-identifier">work</span> <span class="ruby-identifier">directories</span> <span class="ruby-identifier">expire</span> <span class="ruby-keyword">in</span>. <span class="ruby-constant">Defaults</span> <span class="ruby-identifier">to</span> <span class="ruby-value">7</span>]<span class="ruby-string">'
+'</span>(<span class="ruby-operator">-</span><span class="ruby-operator">-</span><span class="ruby-identifier">no</span><span class="ruby-operator">-</span><span class="ruby-identifier">man</span><span class="ruby-operator">-</span><span class="ruby-identifier">pages</span>)<span class="ruby-operator">-</span><span class="ruby-operator">-</span><span class="ruby-identifier">man</span><span class="ruby-operator">-</span><span class="ruby-identifier">pages</span>[<span class="ruby-constant">Generates</span> <span class="ruby-identifier">man</span> <span class="ruby-identifier">pages</span> <span class="ruby-keyword">for</span> <span class="ruby-identifier">executables</span> (<span class="ruby-identifier">man1</span>) <span class="ruby-keyword">and</span> <span class="ruby-identifier">libraries</span> (<span class="ruby-identifier">man3</span>)]<span class="ruby-string">'
+'</span>(<span class="ruby-operator">-</span><span class="ruby-operator">-</span><span class="ruby-identifier">man</span><span class="ruby-operator">-</span><span class="ruby-identifier">pages</span>)<span class="ruby-operator">-</span><span class="ruby-operator">-</span><span class="ruby-identifier">no</span><span class="ruby-operator">-</span><span class="ruby-identifier">man</span><span class="ruby-operator">-</span><span class="ruby-identifier">pages</span>[<span class="ruby-constant">Do</span> <span class="ruby-keyword">not</span> <span class="ruby-identifier">generate</span> <span class="ruby-identifier">man</span> <span class="ruby-identifier">pages</span>]<span class="ruby-string">'
+
+# Note: Normally with &quot;--lwp&quot;, &quot;--wget&quot; and &quot;--curl&quot; options set to true (which is the default) cpanm tries LWP,
+#            Wget, cURL and HTTP::Tiny (in that order) and uses the first one available.
+# (So that the exclusions are not enabled here for the completion)
+'</span>(<span class="ruby-operator">-</span><span class="ruby-operator">-</span><span class="ruby-identifier">lwp</span>)<span class="ruby-operator">-</span><span class="ruby-operator">-</span><span class="ruby-identifier">lwp</span>[<span class="ruby-constant">Use</span> <span class="ruby-constant">LWP</span> <span class="ruby-keyword">module</span> <span class="ruby-identifier">to</span> <span class="ruby-identifier">download</span> <span class="ruby-identifier">stuff</span>]<span class="ruby-string">'
+'</span>(<span class="ruby-operator">-</span><span class="ruby-operator">-</span><span class="ruby-identifier">wget</span>)<span class="ruby-operator">-</span><span class="ruby-operator">-</span><span class="ruby-identifier">wget</span>[<span class="ruby-constant">Use</span> <span class="ruby-constant">GNU</span> <span class="ruby-constant">Wget</span> (<span class="ruby-keyword">if</span> <span class="ruby-identifier">available</span>) <span class="ruby-identifier">to</span> <span class="ruby-identifier">download</span> <span class="ruby-identifier">stuff</span>]<span class="ruby-string">'
+'</span>(<span class="ruby-operator">-</span><span class="ruby-operator">-</span><span class="ruby-identifier">curl</span>)<span class="ruby-operator">-</span><span class="ruby-operator">-</span><span class="ruby-identifier">curl</span>[<span class="ruby-constant">Use</span> <span class="ruby-identifier">cURL</span> (<span class="ruby-keyword">if</span> <span class="ruby-identifier">available</span>) <span class="ruby-identifier">to</span> <span class="ruby-identifier">download</span> <span class="ruby-identifier">stuff</span>]<span class="ruby-string">'
+</span></pre>
+
+<p># Other completions</p>
+
+<pre>'*:Local directory or archive:_files -/ -g &quot;*.(tar.gz|tgz|tar.bz2|zip)(-.)&quot;'
+#  '*::args: _normal' # this looks for default files (any files)</pre>
+
+<p>) _arguments -s $arguments \</p>
+
+<pre>&amp;&amp; return 0</pre>
+
+<p>return 1</p>
+
+</div>
+
+
+
+<footer id="validator-badges">
+  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 3.11.
+  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
+</footer>
+
