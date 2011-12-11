@@ -28,7 +28,6 @@ alias c=vim
 alias cc=vim
 alias cpp=vim
 alias html=vim
-alias java=vim
 alias rb=vim
 alias py=vim
 alias php=vim
@@ -42,4 +41,3 @@ alias pinghome='ping bendaccache.dyndns-server.com'
 alias ll='ls -l'
 alias rmr='rm -r'
 alias browsed='browsed -hc'
-alias grep='grep --color=auto'
