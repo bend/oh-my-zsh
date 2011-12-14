@@ -1,0 +1,36 @@
+#!/bin/bash
+# the name of your primary tmux session
+SESSION=$USER
+ 
+# if the session is already running, just attach to it.
+tmux has-session -t $SESSION
+if [ $? -eq 0 ]; then
+    echo "Session $SESSION already exists. Attaching."
+    sleep 1
+    tmux attach -t $SESSION
+    exit 0;
+fi
+ 
+# create a new session, named $SESSION, and detach from it
+tmux new-session -d -s  $SESSION -n Monitor "sleep 1 &&htop"
+# Now populate the session with the windows you use every day
+# Some windows I specifically want at a particular index.
+ 
+# 1 - Monitor
+tmux select-window -t $SESSION:1 
+
+# Check which interface to monitor
+
+i=$(networksetup -getinfo Ethernet | grep "IP address"  | grep -v IPv6 | xargs echo)
+
+if [ "$i" == "" ]; then
+	tmux splitw -h -t 0 'iftop -i en1 -P'
+else
+	tmux splitw -h -t 0 'iftop -i en0 -P'
+fi
+
+tmux splitw -v -t 1 'sleep 1 &&tail -f /var/log/system.log | cut -c20-'
+tmux splitw -v -t 2 '/Users/benoitdaccache/Documents/Programation/Scripts/speedtest.sh'
+
+tmux select-pane -L 
+tmux attach -t $SESSION
