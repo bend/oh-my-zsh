@@ -2,7 +2,6 @@
 
 require 'net/http'
 require 'uri'
-require 'hpricot'
 
 
 class Wolfram
@@ -34,6 +33,13 @@ class Wolfram
         end
      end
   end
+end
+
+begin
+    require 'hpricot'
+rescue LoadError
+    puts "You need to install Hpricot gem"
+    exit!(1)
 end
 
 if ARGV.length == 0
