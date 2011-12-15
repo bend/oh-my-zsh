@@ -34,8 +34,6 @@ class Wolfram
         end
      end
   end
-
-
 end
 
 if ARGV.length == 0
