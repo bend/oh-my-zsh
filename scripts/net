@@ -1,5 +1,4 @@
 #!/bin/bash
-echo $1
 if [ $1 == on -o $1 == off ]; then
     networksetup -setairportpower en1 $1
     echo "Wifi turned" $1
