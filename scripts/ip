@@ -1,4 +1,4 @@
 #!/bin/bash
-networksetup -getinfo Wi-Fi | grep IP | grep -v IPv6 | xargs echo "Wifi   "
-networksetup -getinfo Ethernet | grep IP | grep -v IPv6 | xargs echo "Eth    "
+networksetup -getinfo Wi-Fi | grep IP | grep -v IPv6 | xargs echo "Wifi "
+networksetup -getinfo Ethernet | grep IP | grep -v IPv6 | xargs echo "Eth "
 curl -s myip.dk | grep "IP Address" | grep "ha4"| egrep -o '[<0-9>.]+'|egrep -o '[0-9.]+' | xargs echo | awk '{print "Public IP Address: " $2}'
