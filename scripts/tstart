@@ -30,7 +30,6 @@ else
 fi
 
 tmux splitw -v -t 1 'sleep 1 &&tail -f /var/log/system.log | cut -c20-'
-tmux splitw -v -t 2 '/Users/benoitdaccache/Documents/Programation/Scripts/speedtest.sh'
 
 tmux select-pane -L 
 tmux attach -t $SESSION

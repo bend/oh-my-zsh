@@ -20,8 +20,8 @@ class Wolfram
      result.each do |e|
          e.inner_text.each_line do |l|
             l.capitalize!
-            l.rstrip
-            puts l
+            l.strip
+            puts "#{l}"
          end
      end
      if result.size == 0
