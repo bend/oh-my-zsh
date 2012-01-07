@@ -23,7 +23,6 @@ alias sl=ls # often screw this up
 alias afind='ack-grep -il'
 
 # Other Aliases
-alias ls='ls -G -F'
 alias turnoff='sudo shutdown -h +0'
 alias cdp='cd ~/Documents/Programation'
 alias cdd='cd ~/Documents/Dropbox'
