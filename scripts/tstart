@@ -31,5 +31,8 @@ fi
 
 tmux splitw -v -t 1 'sleep 1 &&tail -f /var/log/system.log | cut -c20-'
 
+tmux new-window 'mcabber'
+tmux new-window 'rtorrent'
+
 tmux select-pane -L 
 tmux attach -t $SESSION
