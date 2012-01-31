@@ -1,6 +1,5 @@
 current_path=`pwd`
 printf '\033[0;34m%s\033[0m\n' "Upgrading Oh My Zsh"
-( cd $ZSH )
 git pull parent master >/dev/null 2>&1
 printf '\033[0;32m%s\033[0m\n' '         __                                     __   '
 printf '\033[0;32m%s\033[0m\n' '  ____  / /_     ____ ___  __  __   ____  _____/ /_  '
