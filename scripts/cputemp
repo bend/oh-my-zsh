@@ -1,4 +1,0 @@
-#!/bin/bash
-TEMP=$((0x$(./smc -k TC0D -r | awk '{print $4}')))
-
-echo The current temp of your CPU is "$TEMP"°C

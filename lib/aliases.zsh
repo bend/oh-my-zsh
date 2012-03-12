@@ -23,12 +23,9 @@ alias sl=ls # often screw this up
 alias afind='ack-grep -il'
 
 # Other Aliases
-alias turnoff='sudo shutdown -h +0'
-alias cdp='cd ~/Documents/Programation'
-alias cdd='cd ~/Documents/Dropbox'
+alias cdp='cd ~/Programing/'
+alias cdd='cd ~/Dropbox'
 alias pinghome='ping bendaccache.dyndns-server.com'
 alias ll='ls -l'
 alias rmr='rm -r'
 alias browsed='browsed -hc'
-alias octave='GNUTERM=x11 /usr/local/Cellar/octave/3.4.3/bin/octave-3.4.3 -qf'
-alias vlc='/Applications/VLC.app/Contents/MacOS/VLC -I ncurses'

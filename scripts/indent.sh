@@ -2,7 +2,7 @@
 directory=$1
 params="--style=ansi --indent=spaces=4 --break-blocks=all --delete-empty-lines --pad-oper --pad-header --indent-col1-comments --indent-classes --indent-switches --indent-cases --indent-col1-comments --delete-empty-lines --align-pointer=type --align-reference=type --lineend=linux"
 
-declare -a extensions=( '.h'  '.cpp' '.C' '.cxx' '.cpp' '.c') 
+declare -a extensions=( '.h'  '.cpp' '.C' '.cxx' '.cpp' '.c' '.hpp') 
 styler=astyle
 
 if [  $directory != ""  -a -d $directory ]; then 

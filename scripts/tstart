@@ -21,14 +21,6 @@ tmux select-window -t $SESSION:1
 
 # Check which interface to monitor
 
-i=$(networksetup -getinfo Ethernet | grep "IP address"  | grep -v IPv6 | xargs echo)
-
-if [ "$i" == "" ]; then
-	tmux splitw -h -t 0 'iftop -i en1 -P'
-else
-	tmux splitw -h -t 0 'iftop -i en0 -P'
-fi
-
 tmux splitw -v -t 1 'sleep 1 &&tail -f /var/log/system.log | cut -c20-'
 
 tmux new-window 'mcabber'
