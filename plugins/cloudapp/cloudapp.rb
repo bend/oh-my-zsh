@@ -50,8 +50,8 @@ def upload(path)
     puts "Uploaded to #{drop.url}"
     url = "#{drop.url}/#{path.split('/').last}"
 
-    # Copy it to your (Mac's) clipboard.
-    `echo '#{url}' | tr -d "\n" | pbcopy`
+    # Copy it to your (Linux's) clipboard.
+    IO.popen('xclip', 'w').print url
 end
 
 def install
