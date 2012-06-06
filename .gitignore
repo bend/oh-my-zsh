@@ -8,4 +8,4 @@ cache
 *.swp
 updatedns
 .DS_Store
-mount_smb.sh
+mount_smb
