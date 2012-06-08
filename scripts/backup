@@ -1,0 +1,31 @@
+#!/bin/bash
+declare -a DIRECTORIES=( \
+/etc
+/home/ben/Photos
+/home/ben/Music
+)
+
+BACKUP_LOCATION="/media/Backup/"
+
+COMMAND="/usr/bin/rsync"
+
+PARAMS="-rt --stats"
+
+if [[ $EUID -ne 0 ]]; then
+    echo "You must be root"
+    exit
+else
+    if [ -d $directory ];then
+
+        for i in "${DIRECTORIES[@]}"
+        do
+            echo "Synchronizing directory $i"
+            $COMMAND $PARAMS $i $BACKUP_LOCATION
+        done
+
+        pacman -Q > $BACKUP_LOCATION/pacman_installed.txt
+
+    else
+        echo "Backup location not found.. Aborting..."
+    fi
+fi

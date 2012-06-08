@@ -1,4 +1,4 @@
-#/bin/bash
+#!/bin/bash
 directory=$1
 params="--style=ansi --indent=spaces=4 --break-blocks=all --delete-empty-lines --pad-oper --pad-header --indent-col1-comments --indent-classes --indent-switches --indent-cases --indent-col1-comments --delete-empty-lines --align-pointer=type --align-reference=type --lineend=linux"
 
