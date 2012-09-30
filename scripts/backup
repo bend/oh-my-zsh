@@ -1,25 +1,35 @@
 #!/bin/bash
+
+# Which directories to backup
 declare -a DIRECTORIES=( \
-/etc
-/home/ben/Photos
-/home/ben/Music
+    /etc
+    /home/ben/Photos
+    /home/ben/Music
+    /home/ben/VirtualBox*
+    /home/ben/.openvpn
+    /home/ben/.rtorrent.rc
+    /home/ben/.config
 )
 
-BACKUP_LOCATION="/media/Backup/"
+
+if [ -z "$1" ]; then
+    BACKUP_LOCATION="/media/Backup/"
+else
+    BACKUP_LOCATION=$1
+fi
 
 COMMAND="/usr/bin/rsync"
 
-PARAMS="-rt --stats"
+PARAMS="-rpt --delete --stats"
 
 if [[ $EUID -ne 0 ]]; then
     echo "You must be root"
     exit
 else
     if [ -d $directory ];then
-
         for i in "${DIRECTORIES[@]}"
         do
-            echo "Synchronizing directory $i"
+            echo "Synchronizing directory $i with $BACKUP_LOCATION"
             $COMMAND $PARAMS $i $BACKUP_LOCATION
         done
 
