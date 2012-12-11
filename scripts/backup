@@ -1,7 +1,16 @@
 #!/bin/bash
 
+control_c()
+# example cleanup function
+{
+    exit
+}
+
+
+trap control_c SIGINT
+
 # Which directories to backup
-declare -a DIRECTORIES=( \
+declare -a DIRECTORIES_FROM=( \
     /etc
     /home/ben/Photos
     /home/ben/Music
@@ -9,8 +18,52 @@ declare -a DIRECTORIES=( \
     /home/ben/.openvpn
     /home/ben/.rtorrent.rc
     /home/ben/.config
+    /home/ben/.xmo*
+    /home/ben/.xsession
+    /home/ben/.Xclients
+    /home/ben/.vim/
+    /home/ben/.TrueCrypt/
+    /home/ben/.thunderbird/
+    /home/ben/.ssh/
+    /home/ben/.pam_mount.conf.xml
+    /home/ben/.oh-my-zsh/
+    /home/ben/.netrc
+    /home/ben/.muttrc
+    /home/ben/.mutt/
+    /home/ben/.mcabber/
+    /home/ben/.irssi/
+    /home/ben/.gnupg/
+    /home/ben/.asoundrc
 )
 
+# Where to backup starting from BACKUP_LOCATION
+# If / then it will be backuped at root of BACKUP_LOCATION
+declare -a DIRECTORIES_TO=( \
+    /
+    /
+    /
+    /
+    home_conf/
+    home_conf/
+    home_conf/
+    home_conf/
+    home_conf/
+    home_conf/
+    home_conf/
+    home_conf/
+    home_conf/
+    home_conf/
+    home_conf/
+    home_conf/
+    home_conf/
+    home_conf/
+    home_conf/
+    home_conf/
+    home_conf/
+    home_conf/
+    home_conf/
+    home_conf/
+)
 
 if [ -z "$1" ]; then
     BACKUP_LOCATION="/media/Backup/"
@@ -22,15 +75,22 @@ COMMAND="/usr/bin/rsync"
 
 PARAMS="-rpt --delete --stats"
 
+if (( ${#DIRECTORIES_TO[@]} != ${#DIRECTORIES_FROM[@]} ));then
+    echo "From and to array size differ"
+    exit
+fi
+
 if [[ $EUID -ne 0 ]]; then
     echo "You must be root"
     exit
 else
     if [ -d $directory ];then
-        for i in "${DIRECTORIES[@]}"
+        j=0
+        for i in "${DIRECTORIES_FROM[@]}"
         do
-            echo "Synchronizing directory $i with $BACKUP_LOCATION"
-            $COMMAND $PARAMS $i $BACKUP_LOCATION
+            echo "Synchronizing directory $i with $BACKUP_LOCATION/${DIRECTORIES_TO[$j]}"
+            $COMMAND $PARAMS $i $BACKUP_LOCATION/${DIRECTORIES_TO[$j]}
+            j=$j+1
         done
 
         pacman -Q > $BACKUP_LOCATION/pacman_installed.txt
@@ -39,3 +99,4 @@ else
         echo "Backup location not found.. Aborting..."
     fi
 fi
+
