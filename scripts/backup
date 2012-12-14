@@ -89,8 +89,17 @@ if (( ${#DIRECTORIES_TO[@]} != ${#DIRECTORIES_FROM[@]} ));then
     exit
 fi
 
-if [ -f $BACKUP_LOCATION/backup.lock ];
+if [ -f $BACKUP_LOCATION/backup.lock ];then
     echo "Backup already in progress or crashed";
+    cat $BACKUP_LOCATION/backup.lock
+    echo "Trying to recover..."
+    PID=$(cat $BACKUP_LOCATION/backup.lock | grep PID | awk '{print $2}')
+    ALIVE=$(ps ax | grep $PID | grep -v grep)
+    if [[ $ALIVE != "" ]];then
+        echo "Backup in progress... Aborting"
+        exit
+    fi
+    echo "Backup restarted"
 fi
 
 if [[ $EUID -ne 0 ]]; then
@@ -98,7 +107,9 @@ if [[ $EUID -ne 0 ]]; then
     exit
 else
     # Create lock file
-    touch $BACKUP_LOCATION/backup.lock
+    echo "BACKUP STARTED @ $(date)." >$BACKUP_LOCATION/backup.lock
+    echo "PID: $$" >> $BACKUP_LOCATION/backup.lock
+
     if [ -d $directory ];then
         j=0
         for i in "${DIRECTORIES_FROM[@]}"
