@@ -3,6 +3,7 @@
 control_c()
 # example cleanup function
 {
+    rm -f $BACKUP_LOCATION/backup.lock
     exit
 }
 
@@ -75,15 +76,29 @@ COMMAND="/usr/bin/rsync"
 
 PARAMS="-rpt --delete --stats"
 
+# Check if device is available
+touch $BACKUP_LOCATION > /dev/null
+
+if [[ $? -ne 0 ]];then
+    echo "Device mounted but not available";
+    exit
+fi
+
 if (( ${#DIRECTORIES_TO[@]} != ${#DIRECTORIES_FROM[@]} ));then
     echo "From and to array size differ"
     exit
+fi
+
+if [ -f $BACKUP_LOCATION/backup.lock ];
+    echo "Backup already in progress or crashed";
 fi
 
 if [[ $EUID -ne 0 ]]; then
     echo "You must be root"
     exit
 else
+    # Create lock file
+    touch $BACKUP_LOCATION/backup.lock
     if [ -d $directory ];then
         j=0
         for i in "${DIRECTORIES_FROM[@]}"
@@ -94,6 +109,9 @@ else
         done
 
         pacman -Q > $BACKUP_LOCATION/pacman_installed.txt
+
+        # Delete lock file
+        rm -f $BACKUP_LOCATION/backup.lock
 
     else
         echo "Backup location not found.. Aborting..."
