@@ -85,6 +85,8 @@ if [[ $? -ne 0 ]];then
 fi
 
 if (( ${#DIRECTORIES_TO[@]} != ${#DIRECTORIES_FROM[@]} ));then
+    echo ${#DIRECTORIES_TO[@]}
+    echo ${#DIRECTORIES_FROM[@]}
     echo "From and to array size differ"
     exit
 fi
