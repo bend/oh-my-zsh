@@ -31,3 +31,4 @@ alias pinghome='ping bendaccache.dyndns-server.com'
 alias ll='ls -l'
 alias rmr='rm -r'
 alias browsed='browsed -hc'
+alias cdc="cd /home/ben/Dropbox/Documents/Master/"
