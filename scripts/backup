@@ -1,133 +1,222 @@
 #!/bin/bash
-
+############################################################
+#                                                          #
+#               DO NOT EDIT THESE FUNCTIONS                #
+#                                                          #
+############################################################
 control_c()
 # example cleanup function
 {
+    mail_logs
     rm -f $BACKUP_LOCATION/backup.lock
     exit
 }
-
-
 trap control_c SIGINT
 
+function mail_logs {
+    # Send logs if activated
+    if [ $EMAIL_LOGS == TRUE ];then
+        $MAIL -s "Backup log of $NOW" ben.daccache@gmail.com < $LOG_DIR
+    fi
+}
+
+function quit {
+    mail_logs
+    exit
+}
+
+############################################################
+#                                                          #
+#           EDIT THESE VARIABLES TO FIT YOUR NEEDS         #
+#                                                          #
+############################################################
+
+## Vars
+
+DEFAULT_BL="/media/Backup"                  # Default Backup Location
+DAYS=60                                     # The number of days after which old backups will be deleted
+EMAIL_LOGS=TRUE                             # Email logs at the end (TRUE, FALSE)
+EMAIL="ben.daccache+logs@gmail.com"         # Email address
+LOG_DIR="/var/log"                          # Log directory
+
+## Command location
+RSYNC="/usr/bin/rsync"                      # Location of rsync command
+GREP="/usr/bin/grep"                        # Location of grep  command
+CAT="/usr/bin/cat"                          # Location of cat   command
+TOUCH="/usr/bin/touch"                      # Location of touch command
+AWK="/usr/bin/awk"                          # Location of awk   command
+CP="/bin/cp"                                # Location of cp    command
+MK="/bin/mkdir"                             # Location of mkdir command
+RM="/bin/rm"                                # Location of rm    command
+DATE="/bin/date"                            # Location of date  command
+MAIL="/usr/bin/mail"                        # Location of mail  command
+INSTALLED_PACKAGES="pacman -Q"              # How to retrieve installed packages ?
+
+
 # Which directories to backup
-declare -a DIRECTORIES_FROM=( \
-    /etc
-    /home/ben/Photos
-    /home/ben/Music
-    /home/ben/VirtualBox*
-    /home/ben/.openvpn
-    /home/ben/.rtorrent.rc
-    /home/ben/.config
-    /home/ben/.xmo*
-    /home/ben/.xsession
-    /home/ben/.Xclients
-    /home/ben/.vim/
-    /home/ben/.TrueCrypt/
-    /home/ben/.thunderbird/
-    /home/ben/.ssh/
-    /home/ben/.pam_mount.conf.xml
-    /home/ben/.oh-my-zsh/
-    /home/ben/.netrc
-    /home/ben/.muttrc
-    /home/ben/.mutt/
-    /home/ben/.mcabber/
-    /home/ben/.irssi/
-    /home/ben/.gnupg/
-    /home/ben/.asoundrc
+DIRECTORIES_FROM=(\
+   "/etc"
+   "/home/ben/Photos"
+   "/home/ben/Music"
+   "/home/ben/VirtualBox*"
+   "/home/ben/.openvpn"
+   "/home/ben/.rtorrent.rc"
+   "/home/ben/.config"
+   "/home/ben/.xmo*"
+   "/home/ben/.xsession"
+   "/home/ben/.Xclients"
+   "/home/ben/.vim/"
+   "/home/ben/.TrueCrypt/"
+   "/home/ben/.thunderbird/"
+   "/home/ben/.ssh/"
+   "/home/ben/.pam_mount.conf.xml"
+   "/home/ben/.oh-my-zsh/"
+   "/home/ben/.netrc"
+   "/home/ben/.muttrc"
+   "/home/ben/.mutt/"
+   "/home/ben/.mcabber/"
+   "/home/ben/.irssi/"
+   "/home/ben/.gnupg/"
+   "/home/ben/.asoundrc"
 )
 
 # Where to backup starting from BACKUP_LOCATION
 # If / then it will be backuped at root of BACKUP_LOCATION
-declare -a DIRECTORIES_TO=( \
-    /
-    /
-    /
-    /
-    home_conf/
-    home_conf/
-    home_conf/
-    home_conf/
-    home_conf/
-    home_conf/
-    home_conf/
-    home_conf/
-    home_conf/
-    home_conf/
-    home_conf/
-    home_conf/
-    home_conf/
-    home_conf/
-    home_conf/
-    home_conf/
-    home_conf/
-    home_conf/
-    home_conf/
-    home_conf/
+DIRECTORIES_TO=(\
+    "/"
+    "/"
+    "/"
+    "/"
+    "home_conf/"
+    "home_conf/"
+    "home_conf/"
+    "home_conf/"
+    "home_conf/"
+    "home_conf/"
+    "home_conf/"
+    "home_conf/"
+    "home_conf/"
+    "home_conf/"
+    "home_conf/"
+    "home_conf/"
+    "home_conf/"
+    "home_conf/"
+    "home_conf/"
+    "home_conf/"
+    "home_conf/"
+    "home_conf/"
+    "home_conf/"
 )
 
+############################################################
+#                                                          #
+#               DO NOT EDIT BEYOND THIS POINT              #
+#                                                          #
+############################################################
+
+# Create LOG FILE name
+NOW=`date +%m-%d-%y_%H:%M:%S`
+D="backup_$NOW.log"
+LOG_DIR=$LOG_DIR/$D
+
+{
+# Check if user is root
+if [[ $EUID -ne 0 ]]; then
+    echo "You must be root"
+    quit
+fi
+
+# Backup Location
 if [ -z "$1" ]; then
-    BACKUP_LOCATION="/media/Backup/"
+    BACKUP_LOCATION=$DEFAULT_BL
 else
     BACKUP_LOCATION=$1
 fi
 
-COMMAND="/usr/bin/rsync"
 
-PARAMS="-rpt --delete --stats"
+# Check if backup location is available
+# Usefull for SMB shares
+touch $BACKUP_LOCATION
 
-# Check if device is available
-touch $BACKUP_LOCATION > /dev/null
-
-if [[ $? -ne 0 ]];then
-    echo "Device mounted but not available";
-    exit
+if [[ $? -eq 0 ]];then
+    echo "ERROR: Device mounted but not available";
+    quit
 fi
 
+# Check backup vectors sizes
 if (( ${#DIRECTORIES_TO[@]} != ${#DIRECTORIES_FROM[@]} ));then
     echo ${#DIRECTORIES_TO[@]}
     echo ${#DIRECTORIES_FROM[@]}
-    echo "From and to array size differ"
-    exit
+    echo "ERROR: From and to array size differ"
+    quit
 fi
 
+# Check if no backup is currently in progress
 if [ -f $BACKUP_LOCATION/backup.lock ];then
-    echo "Backup already in progress or crashed";
-    cat $BACKUP_LOCATION/backup.lock
-    echo "Trying to recover..."
-    PID=$(cat $BACKUP_LOCATION/backup.lock | grep PID | awk '{print $2}')
-    ALIVE=$(ps ax | grep $PID | grep -v grep)
+    echo "ERROR: Backup already in progress or crashed";
+    $CAT $BACKUP_LOCATION/backup.lock
+    echo "INFO: Trying to recover..."
+    PID=$($CAT $BACKUP_LOCATION/backup.lock | $GREP PID | $AWK '{print $2}')
+    ALIVE=$(ps ax | $GREP $PID | $GREP -v grep)
     if [[ $ALIVE != "" ]];then
-        echo "Backup in progress... Aborting"
-        exit
+        echo "ERROR: Backup in progress... Aborting"
+        quit
     fi
-    echo "Backup restarted"
+    echo "INFO: Backup restarted"
 fi
 
-if [[ $EUID -ne 0 ]]; then
-    echo "You must be root"
-    exit
+# Create lock file
+echo "BACKUP STARTED @ $($DATE)." >$BACKUP_LOCATION/backup.lock
+echo "PID: $$" >> $BACKUP_LOCATION/backup.lock
+
+#Todays date in ISO-8601 format:
+TODAY=`date -I`
+
+#Yesterdays date in ISO-8601 format:
+YESTERDAY=`date -I -d "1 day ago"`
+
+#The link destination directory:
+LNK="$BACKUP_LOCATION/$YESTERDAY"
+
+# Create Backup dir
+CURRENT="$BACKUP_LOCATION/$TODAY"
+$MK $CURRENT >/dev/null 2>&1
+
+# RSYNC Params
+if [ -d $BACKUP_LOCATION/$YESTERDAY ];then
+    echo "Link enabled"
+    RSYNC_PARAMS="-rpt --delete --stats --link-dest=$LNK"
 else
-    # Create lock file
-    echo "BACKUP STARTED @ $(date)." >$BACKUP_LOCATION/backup.lock
-    echo "PID: $$" >> $BACKUP_LOCATION/backup.lock
-
-    if [ -d $directory ];then
-        j=0
-        for i in "${DIRECTORIES_FROM[@]}"
-        do
-            echo "Synchronizing directory $i with $BACKUP_LOCATION/${DIRECTORIES_TO[$j]}"
-            $COMMAND $PARAMS $i $BACKUP_LOCATION/${DIRECTORIES_TO[$j]}
-            j=$j+1
-        done
-
-        pacman -Q > $BACKUP_LOCATION/pacman_installed.txt
-
-        # Delete lock file
-        rm -f $BACKUP_LOCATION/backup.lock
-
-    else
-        echo "Backup location not found.. Aborting..."
-    fi
+    RSYNC_PARAMS="-rpt --delete --stats "
 fi
+
+# Backup with rsync
+if [ -d $directory ];then
+    j=0
+    for i in "${DIRECTORIES_FROM[@]}"
+    do
+        echo "INFO: Synchronizing directory $i with $CURRENT/${DIRECTORIES_TO[$j]}"
+        $RSYNC $RSYNC_PARAMS $i $CURRENT/${DIRECTORIES_TO[$j]}
+        j=$j+1
+    done
+
+    $INSTALLED_PACKAGES > $CURRENT/installed_packages.txt
+
+    # Delete lock file
+    rm -f $BACKUP_LOCATION/backup.lock
+
+else
+    echo "ERROR: Backup location not found.. Aborting..."
+    quit
+fi
+
+# Delete old backups
+OLD='date -I -d "$DAYS days ago"'
+if [ -d '$BACKUP_LOCATION/$OLD' ];then
+    echo "Deleting old backup : $OLD"
+    $RM $BACKUP_LOCATION/$OLD
+fi
+} > $LOG_DIR 2>&1
+
+mail_logs
 
