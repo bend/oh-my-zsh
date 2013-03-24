@@ -33,3 +33,5 @@ alias rmr='rm -r'
 alias browsed='browsed -hc'
 alias cdc="cd /home/ben/Dropbox/Documents/Master/"
 alias drive="chromium --app=http://drive.google.com"
+
+alias airport="wine ~/.wine/drive_c/Program\ Files\ \(x86\)/AirPort/APUtil.exe"

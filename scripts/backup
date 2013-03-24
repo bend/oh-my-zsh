@@ -16,7 +16,14 @@ trap control_c SIGINT
 function mail_logs {
     # Send logs if activated
     if [ $EMAIL_LOGS == TRUE ];then
-        $MAIL -s "Backup log of $NOW" ben.daccache@gmail.com < $LOG_DIR
+        if [ -s $LOG_DIR_OUT ];then
+            $MAIL -s "Backup log of $NOW" ben.daccache@gmail.com < $LOG_DIR_OUT
+        fi
+    fi
+    if [ $EMAIL_LOGS_ERR == TRUE ];then
+        if [ -s $LOG_DIR_ERR ];then
+            $MAIL -s "Backup error log of $NOW" ben.daccache@gmail.com < $LOG_DIR_ERR
+        fi
     fi
 }
 
@@ -35,7 +42,8 @@ function quit {
 
 DEFAULT_BL="/media/Backup"                  # Default Backup Location
 DAYS=60                                     # The number of days after which old backups will be deleted
-EMAIL_LOGS=TRUE                             # Email logs at the end (TRUE, FALSE)
+EMAIL_LOGS=FALSE                            # Email logs at the end (TRUE, FALSE)
+EMAIL_LOGS_ERR=TRUE                         # Email logs at the end (TRUE, FALSE)
 EMAIL="ben.daccache+logs@gmail.com"         # Email address
 LOG_DIR="/var/log"                          # Log directory
 
@@ -117,12 +125,13 @@ DIRECTORIES_TO=(\
 # Create LOG FILE name
 NOW=`date +%m-%d-%y_%H:%M:%S`
 D="backup_$NOW.log"
-LOG_DIR=$LOG_DIR/$D
+LOG_DIR_OUT=$LOG_DIR/$D
+LOG_DIR_ERR="$LOG_DIR/$D.err"
 
 {
 # Check if user is root
 if [[ $EUID -ne 0 ]]; then
-    echo "You must be root"
+    echo "ERROR: You must be root" > /dev/stderr
     quit
 fi
 
@@ -136,10 +145,10 @@ fi
 
 # Check if backup location is available
 # Usefull for SMB shares
-touch $BACKUP_LOCATION
+$TOUCH $BACKUP_LOCATION
 
-if [[ $? -eq 0 ]];then
-    echo "ERROR: Device mounted but not available";
+if [[ $? -ne 0 ]];then
+    echo "ERROR: Device mounted but not available" >/dev/stderr
     quit
 fi
 
@@ -147,7 +156,7 @@ fi
 if (( ${#DIRECTORIES_TO[@]} != ${#DIRECTORIES_FROM[@]} ));then
     echo ${#DIRECTORIES_TO[@]}
     echo ${#DIRECTORIES_FROM[@]}
-    echo "ERROR: From and to array size differ"
+    echo "ERROR: From and to array size differ" > /dev/stderr
     quit
 fi
 
@@ -159,7 +168,7 @@ if [ -f $BACKUP_LOCATION/backup.lock ];then
     PID=$($CAT $BACKUP_LOCATION/backup.lock | $GREP PID | $AWK '{print $2}')
     ALIVE=$(ps ax | $GREP $PID | $GREP -v grep)
     if [[ $ALIVE != "" ]];then
-        echo "ERROR: Backup in progress... Aborting"
+        echo "ERROR: Backup in progress... Aborting" > /dev/stderr
         quit
     fi
     echo "INFO: Backup restarted"
@@ -170,10 +179,12 @@ echo "BACKUP STARTED @ $($DATE)." >$BACKUP_LOCATION/backup.lock
 echo "PID: $$" >> $BACKUP_LOCATION/backup.lock
 
 #Todays date in ISO-8601 format:
-TODAY=`date -I`
+#TODAY=`date -I`
+TODAY=backup
 
 #Yesterdays date in ISO-8601 format:
-YESTERDAY=`date -I -d "1 day ago"`
+# TODO FIXME
+#YESTERDAY=`date -I -d "1 day ago"`
 
 #The link destination directory:
 LNK="$BACKUP_LOCATION/$YESTERDAY"
@@ -206,7 +217,7 @@ if [ -d $directory ];then
     rm -f $BACKUP_LOCATION/backup.lock
 
 else
-    echo "ERROR: Backup location not found.. Aborting..."
+    echo "ERROR: Backup location not found.. Aborting..." >/dev/stderr
     quit
 fi
 
@@ -216,7 +227,7 @@ if [ -d '$BACKUP_LOCATION/$OLD' ];then
     echo "Deleting old backup : $OLD"
     $RM $BACKUP_LOCATION/$OLD
 fi
-} > $LOG_DIR 2>&1
+} > $LOG_DIR_OUT 2> $LOG_DIR_ERR
 
 mail_logs
 

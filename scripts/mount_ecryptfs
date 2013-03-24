@@ -1,0 +1,24 @@
+#!/bin/bash - 
+#===============================================================================
+#
+#          FILE: mount_ecryptfs.sh
+# 
+#         USAGE: ./mount_ecryptfs.sh  $1
+# 
+#   DESCRIPTION: 
+# 
+#       OPTIONS: ---
+#  REQUIREMENTS: ---
+#          BUGS: ---
+#         NOTES: ---
+#        AUTHOR: YOUR NAME (), 
+#  ORGANIZATION: 
+#       CREATED: 03/24/2013 01:20:57 PM CET
+#      REVISION:  ---
+#===============================================================================
+
+set -o nounset                              # Treat unset variables as an error
+
+sudo mount -t ecryptfs $1 $1 -o key=passphrase,ecryptfs_cipher=aes,ecryptfs_key_bytes=16,ecryptfs_passthrough=n,ecryptfs_enable_filename_crypt=y
+
+
