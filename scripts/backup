@@ -1,36 +1,4 @@
 #!/bin/bash
-############################################################
-#                                                          #
-#               DO NOT EDIT THESE FUNCTIONS                #
-#                                                          #
-############################################################
-control_c()
-# example cleanup function
-{
-    mail_logs
-    rm -f $BACKUP_LOCATION/backup.lock
-    exit
-}
-trap control_c SIGINT
-
-function mail_logs {
-    # Send logs if activated
-    if [ $EMAIL_LOGS == TRUE ];then
-        if [ -s $LOG_DIR_OUT ];then
-            $MAIL -s "Backup log of $NOW" ben.daccache@gmail.com < $LOG_DIR_OUT
-        fi
-    fi
-    if [ $EMAIL_LOGS_ERR == TRUE ];then
-        if [ -s $LOG_DIR_ERR ];then
-            $MAIL -s "Backup error log of $NOW" ben.daccache@gmail.com < $LOG_DIR_ERR
-        fi
-    fi
-}
-
-function quit {
-    mail_logs
-    exit
-}
 
 ############################################################
 #                                                          #
@@ -40,7 +8,7 @@ function quit {
 
 ## Vars
 
-DEFAULT_BL="/media/Backup"                  # Default Backup Location
+DEFAULT_BL="/media/Backup/crypted_backup"                  # Default Backup Location
 DAYS=60                                     # The number of days after which old backups will be deleted
 EMAIL_LOGS=FALSE                            # Email logs at the end (TRUE, FALSE)
 EMAIL_LOGS_ERR=TRUE                         # Email logs at the end (TRUE, FALSE)
@@ -67,6 +35,7 @@ DIRECTORIES_FROM=(\
    "/home/ben/Photos"
    "/home/ben/Music"
    "/home/ben/VirtualBox*"
+   "/home/ben/Work/"
    "/home/ben/.openvpn"
    "/home/ben/.rtorrent.rc"
    "/home/ben/.config"
@@ -95,6 +64,7 @@ DIRECTORIES_TO=(\
     "/"
     "/"
     "/"
+    "/"
     "home_conf/"
     "home_conf/"
     "home_conf/"
@@ -116,11 +86,41 @@ DIRECTORIES_TO=(\
     "home_conf/"
 )
 
+
 ############################################################
 #                                                          #
 #               DO NOT EDIT BEYOND THIS POINT              #
 #                                                          #
 ############################################################
+
+control_c()
+# example cleanup function
+{
+    mail_logs
+    rm -f $BACKUP_LOCATION/backup.lock
+    exit
+}
+trap control_c SIGINT
+
+function mail_logs {
+    # Send logs if activated
+    if [ $EMAIL_LOGS == TRUE ];then
+        if [ -s $LOG_DIR_OUT ];then
+            $MAIL -s "Backup log of $NOW" ben.daccache@gmail.com < $LOG_DIR_OUT
+        fi
+    fi
+    if [ $EMAIL_LOGS_ERR == TRUE ];then
+        if [ -s $LOG_DIR_ERR ];then
+            $MAIL -s "Backup error log of $NOW" ben.daccache@gmail.com < $LOG_DIR_ERR
+        fi
+    fi
+}
+
+function quit {
+    mail_logs
+    exit
+}
+
 
 # Create LOG FILE name
 NOW=`date +%m-%d-%y_%H:%M:%S`
