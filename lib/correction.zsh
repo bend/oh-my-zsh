@@ -8,3 +8,5 @@ alias gist='nocorrect gist'
 alias heroku='nocorrect heroku'
 alias ebuild='nocorrect ebuild'
 alias hpodder='nocorrect hpodder'
+# correct commands, but not any arguments (correct_all would do that)
+#setopt correct
