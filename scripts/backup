@@ -8,7 +8,7 @@
 
 ## Vars
 
-DEFAULT_BL="/media/Backup/crypted_backup"                  # Default Backup Location
+DEFAULT_BL="/media/Backup"                  # Default Backup Location
 DAYS=60                                     # The number of days after which old backups will be deleted
 EMAIL_LOGS=FALSE                            # Email logs at the end (TRUE, FALSE)
 EMAIL_LOGS_ERR=TRUE                         # Email logs at the end (TRUE, FALSE)
@@ -210,7 +210,8 @@ if [ -d $directory ];then
         $RSYNC $RSYNC_PARAMS $i $CURRENT/${DIRECTORIES_TO[$j]}
         j=$j+1
     done
-
+    
+    echo "INFO: Generating list of installed packages"
     $INSTALLED_PACKAGES > $CURRENT/installed_packages.txt
 
     # Delete lock file
@@ -224,9 +225,10 @@ fi
 # Delete old backups
 OLD='date -I -d "$DAYS days ago"'
 if [ -d '$BACKUP_LOCATION/$OLD' ];then
-    echo "Deleting old backup : $OLD"
+    echo "INFO: Deleting old backup : $OLD"
     $RM $BACKUP_LOCATION/$OLD
 fi
+echo "INFO: Backup completed"
 } > $LOG_DIR_OUT 2> $LOG_DIR_ERR
 
 mail_logs

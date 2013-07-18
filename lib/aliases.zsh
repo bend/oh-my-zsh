@@ -27,11 +27,27 @@ alias afind='ack-grep -il'
 # Other Aliases
 alias cdp='cd ~/Programing/'
 alias cdd='cd ~/Dropbox'
+alias cdc="cd /home/ben/Dropbox/Documents/Master/Q2"
 alias pinghome='ping bendaccache.dyndns-server.com'
 alias ll='ls -l'
 alias rmr='rm -r'
-alias browsed='browsed -hc'
-alias cdc="cd /home/ben/Dropbox/Documents/Master/"
-alias drive="chromium --app=http://drive.google.com"
 
-alias airport="wine ~/.wine/drive_c/Program\ Files\ \(x86\)/AirPort/APUtil.exe"
+if [ -x /usr/bin/browsed ] ; then
+    alias browsed='browsed -hc'
+fi
+
+if [ -x /usr/bin/chromium ] ; then
+    alias drive="chromium --app=http://drive.google.com"
+fi
+
+if [ -x /usr/bin/wine ] ; then
+    alias airport="wine ~/.wine/drive_c/Program\ Files\ \(x86\)/AirPort/APUtil.exe"
+fi
+
+if [ -x /usr/bin/google-translate ] ; then
+    alias translate="google-translate"
+fi
+
+if [ -x /usr/bin/tmux ] ; then
+    alias tmux="TERM=screen-256color-bce tmux"
+fi
