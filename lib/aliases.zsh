@@ -17,7 +17,7 @@ alias history='fc -l 1'
 
 # List direcory contents
 alias lsa='ls -lah'
-alias l='ls -lA1'
+alias l='ls -la'
 alias ll='ls -l'
 alias la='ls -lA'
 alias sl=ls # often screw this up
@@ -27,7 +27,7 @@ alias afind='ack-grep -il'
 # Other Aliases
 alias cdp='cd ~/Programing/'
 alias cdd='cd ~/Dropbox'
-alias cdc="cd /home/ben/Dropbox/Documents/Master/M2/Q1
+alias cdc="cd /home/ben/Dropbox/Documents/Master/M2/Q1"
 alias pinghome='ping bendaccache.dyndns-server.com'
 alias ll='ls -l'
 alias rmr='rm -r'

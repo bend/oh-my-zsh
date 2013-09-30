@@ -22,7 +22,7 @@ echo "\033[0;34mUsing the Oh My Zsh template file and adding it to ~/.zshrc\033[
 cp ~/.oh-my-zsh/zshrc/.zshrc ~/.zshrc
 
 echo "\033[0;34mCopying your current PATH and adding it to the end of ~/.zshrc for you.\033[0m"
-echo "export PATH=$PATH" >> ~/.zshrc
+echo "export PATH=\$PATH:$PATH" >> ~/.zshrc
 
 echo "\033[0;34mTime to change your default shell to zsh!\033[0m"
 chsh -s `which zsh`
