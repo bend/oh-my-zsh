@@ -25,7 +25,7 @@ alias sl=ls # often screw this up
 alias afind='ack-grep -il'
 
 # Other Aliases
-alias cdp='cd ~/Programing/'
+alias cdp='cd ~/Programming/'
 alias cdd='cd ~/Dropbox'
 alias cdc="cd /home/ben/Dropbox/Documents/Master/M2/Q1"
 alias pinghome='ping bendaccache.dyndns-server.com'

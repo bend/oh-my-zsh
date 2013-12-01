@@ -34,37 +34,35 @@ DIRECTORIES_FROM=(\
    "/etc"
    "/home/ben/Photos"
    "/home/ben/Music"
-   "/home/ben/VirtualBox*"
-   "/home/ben/Work/"
+   "/home/ben/KVM"
    "/home/ben/.openvpn"
    "/home/ben/.rtorrent.rc"
    "/home/ben/.config"
    "/home/ben/.xmo*"
    "/home/ben/.xsession"
    "/home/ben/.Xclients"
-   "/home/ben/.vim/"
-   "/home/ben/.TrueCrypt/"
-   "/home/ben/.thunderbird/"
-   "/home/ben/.ssh/"
+   "/home/ben/.vim"
+   "/home/ben/.vimrc"
+   "/home/ben/.TrueCrypt"
+   "/home/ben/.ssh"
    "/home/ben/.pam_mount.conf.xml"
-   "/home/ben/.oh-my-zsh/"
+   "/home/ben/.oh-my-zsh"
    "/home/ben/.netrc"
    "/home/ben/.muttrc"
-   "/home/ben/.mutt/"
-   "/home/ben/.mcabber/"
-   "/home/ben/.irssi/"
-   "/home/ben/.gnupg/"
+   "/home/ben/.mutt"
+   "/home/ben/.mcabber"
+   "/home/ben/.irssi"
+   "/home/ben/.gnupg"
    "/home/ben/.asoundrc"
 )
 
 # Where to backup starting from BACKUP_LOCATION
 # If / then it will be backuped at root of BACKUP_LOCATION
 DIRECTORIES_TO=(\
-    "/"
-    "/"
-    "/"
-    "/"
-    "/"
+    ""
+    ""
+    ""
+    ""
     "home_conf/"
     "home_conf/"
     "home_conf/"
@@ -127,7 +125,7 @@ NOW=`date +%m-%d-%y_%H:%M:%S`
 D="backup_$NOW.log"
 LOG_DIR_OUT=$LOG_DIR/$D
 LOG_DIR_ERR="$LOG_DIR/$D.err"
-
+#set -x
 {
 # Check if user is root
 if [[ $EUID -ne 0 ]]; then
@@ -179,26 +177,34 @@ echo "BACKUP STARTED @ $($DATE)." >$BACKUP_LOCATION/backup.lock
 echo "PID: $$" >> $BACKUP_LOCATION/backup.lock
 
 #Todays date in ISO-8601 format:
-#TODAY=`date -I`
-TODAY=backup
+TODAY=`date -I`
+#TODAY=backup
 
 #Yesterdays date in ISO-8601 format:
-# TODO FIXME
-#YESTERDAY=`date -I -d "1 day ago"`
+#Link Up to 10 days 
+
+for i in {1..10}
+do
+  LATEST=`date -I -d "$i day ago"`
+  if [ -d $BACKUP_LOCATION/$LATEST ];then
+    echo "Info : Lastest backup is : $LATEST"
+    break;
+  fi
+done
 
 #The link destination directory:
-LNK="$BACKUP_LOCATION/$YESTERDAY"
+LNK="$BACKUP_LOCATION/$LATEST/"
 
 # Create Backup dir
 CURRENT="$BACKUP_LOCATION/$TODAY"
 $MK $CURRENT >/dev/null 2>&1
 
 # RSYNC Params
-if [ -d $BACKUP_LOCATION/$YESTERDAY ];then
-    echo "Link enabled"
-    RSYNC_PARAMS="-rpt --delete --stats --link-dest=$LNK"
+if [ -d $BACKUP_LOCATION/$LATEST ];then
+    echo "Info : Link enabled"
+    RSYNC_PARAMS="-rptav --delete --stats --link-dest=$LNK"
 else
-    RSYNC_PARAMS="-rpt --delete --stats "
+    RSYNC_PARAMS="-rptav --delete --stats "
 fi
 
 # Backup with rsync
@@ -231,5 +237,5 @@ fi
 echo "INFO: Backup completed"
 } > $LOG_DIR_OUT 2> $LOG_DIR_ERR
 
-mail_logs
+#mail_logs
 
