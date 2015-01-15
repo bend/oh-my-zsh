@@ -24,9 +24,25 @@ DISABLE_AUTO_TITLE="true"
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Here the history-substring-search plugin must be enabled after the vi-mode plugin
-plugins=(git gem ruby ssh svn cloudapp ecp virtualbox wolfram lipsum vi-mode history-substring-search ) 
+plugins=(git gem ruby ssh svn cloudapp ecp virtualbox wolfram lipsum vi-mode history-substring-search tmux ) 
 
 source $ZSH/oh-my-zsh.sh
+
+# Completion verbose please
+zstyle ':completion:*' verbose true
+
+# Completion for kill
+zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
+zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
+
+# Speed up completion via cache
+zstyle ':completion:*' use-cache on
+zstyle ':completion:*' cache-path ~/.zsh/cache
+
+# Auto complete to previous dirs
+# cd -<TAB>
+setopt autopushd               # automatically append dirs to the push/pop list
+setopt pushdignoredups         # and don't duplicate them
 
 # Personnal Settings
 export PAGER='less'
@@ -34,12 +50,12 @@ export EDITOR='vim'
 export VISUAL=vim
 
 # Exports
+export PATH=/home/benoit/.ccache/bin:$PATH
 export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/usr/texbin:/usr/X11/bin:/usr/X11R6/bin:$PATH
 export PATH=/usr/local/sbin:$PATH
 export PATH=/root/.gem/ruby/1.9.1/bin:$PATH
 export PATH=~/.oh-my-zsh/scripts:$PATH
-export PATH=/home/ben/.gem/ruby/1.9.1/bin:$PATH
-export PATH=/home/ben/Applications/launchers:$PATH
+export PATH=~/local/bin:$PATH
 
 export LSCOLORS="BxGxcxdxCxegedabagacad"
 
@@ -57,5 +73,6 @@ export PERL_MB_OPT="--install_base /home/ben/perl5";
 export PERL_MM_OPT="INSTALL_BASE=/home/ben/perl5";
 export PERL5LIB="/home/ben/perl5/lib/perl5/x86_64-linux-thread-multi:/home/ben/perl5/lib/perl5";
 export PATH="/home/ben/perl5/bin:$PATH";
+export MAKEFLAGS='-j8'
 
 
